@@ -157,8 +157,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modules\AdminModule.cs" />
-    <Compile Include="Modules\InfoModule.cs" />
+    <Compile Include="Modules\AdminCommands.cs" />
+    <Compile Include="Modules\CoreCommands.cs" />
+    <Compile Include="Modules\MusicCommands.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ConfigHandler.cs" />

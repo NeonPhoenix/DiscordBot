@@ -5,7 +5,7 @@ using Discord.Commands;
 namespace DiscordBot.Modules
 {
     [Group("admin")]
-    public class AdminModule
+    public class AdminCommands
     {
         [Group("clean")]
         public class CleanModule : ModuleBase<SocketCommandContext>

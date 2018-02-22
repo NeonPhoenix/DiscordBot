@@ -31,7 +31,6 @@ namespace DiscordBot
             _services = new ServiceCollection().AddSingleton(_client).AddSingleton(_commands).BuildServiceProvider();
 
             _client.Log += Log;
-            _client.MessageUpdated += MessageUpdated;
 
             _client.Ready += () =>
             {
@@ -56,12 +55,6 @@ namespace DiscordBot
         {
             Console.WriteLine(msg.ToString());
             return Task.CompletedTask;
-        }
-
-        private async Task MessageUpdated(Cacheable<IMessage, ulong> before, SocketMessage after, ISocketMessageChannel channel)
-        {
-            var message = await before.GetOrDownloadAsync();
-            Console.WriteLine($"{message} -> {after}");
         }
 
         private async Task HandleCommandAsync(SocketMessage messageParam)

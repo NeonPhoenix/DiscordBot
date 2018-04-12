@@ -1,28 +1,37 @@
-﻿using System.Threading.Tasks;
-using Discord;
-using Discord.WebSocket;
+﻿using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
+using DiscordBot.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace DiscordBot.Modules
 {
     public class CoreCommands : ModuleBase<SocketCommandContext>
     {
+        private readonly DiscordSocketClient _client;
+
         [Command("ping")]
         public async Task Ping()
         {
-            await ReplyAsync("Pong!");
+            
         }
 
         [Command("help")]
         public async Task Help()
         {
-
+            
         }
 
         [Command("stats")]
         public async Task Stats()
         {
+            TimeSpan timeSinceStart = DateTime.Now.Subtract(Program.timeSinceStartup);
 
+            //IDiscordClient embed => new RuntimeEmbed(new EmbedBuilder());
         }
 
         [Command("shard")]
@@ -31,28 +40,52 @@ namespace DiscordBot.Modules
 
         }
 
-        [Command("info")]
-        public async Task Info()
+        [Command("whois")]
+        public async Task Info(IGuildUser usr = null)
         {
+            var user = usr ?? Context.User as IGuildUser;
+
+            List<string> roles = new List<string>();
+
+            if (user == null) return;
+
+            foreach (ulong i in user.RoleIds) { roles.Add(user.Guild.GetRole(i).Name); }
+            roles.Remove("@everyone");
+            string r = string.Join(" ", roles);
+
+            var embed = new EmbedBuilder().AddField(fb => fb.WithName("Username:").WithValue($"**{user.Username}**#{user.Discriminator}").WithIsInline(true));
+
+            if(!string.IsNullOrWhiteSpace(user.Nickname))
+            {
+                embed.AddField(fb => fb.WithName("Nickname:").WithValue(user.Nickname).WithIsInline(true));
+            }
+
+            embed.AddField(fb => fb.WithName("User ID:").WithValue(user.Id.ToString()).WithIsInline(true))
+                 .AddField(fb => fb.WithName("Joined On:").WithValue($"{user.JoinedAt?.ToString("dd.MM.yyyy HH:mm") ?? "?"}").WithIsInline(true))
+                 .AddField(fb => fb.WithName("Created On:").WithValue($"{user.CreatedAt:dd.MM.yyyy HH:mm}").WithIsInline(true))
+                 .AddField(fb => fb.WithName("Roles:").WithValue(r).WithIsInline(false))
+                 .WithColor(Reference.OK_COLOR);
+
+            if(user.AvatarId != null) { embed.WithThumbnailUrl(user.GetAvatarUrl()); }
+
+            await Context.Channel.SendMessageAsync("", false, embed, null).ConfigureAwait(false);
+        }
+
+        [Command("serverinfo")]
+        public async Task Server(string guildName = null)
+        {
+            var channel = (ITextChannel)Context.Channel;
+            guildName = guildName?.ToUpperInvariant();
+            SocketGuild guild;
 
         }
 
-        [Command("patreon")]
-        public async Task Patreon()
+        [Command("invite")]
+        public async Task Invite()
         {
-
-        }
-
-        [Command("server")]
-        public async Task Server()
-        {
-
-        }
-
-        [Command("userinfo")]
-        public async Task UserInfo()
-        {
-
+            await Context.Channel.SendMessageAsync("test Message");
+            //e.Channel.QueueMessageAsync(locale.GetString("module_core_invite_message"));
+            //await e.Author.QueueMessageAsync(locale.GetString("moudule_core_invite_dm") + "Replace with Config");
         }
 
         [Command("edit")]
@@ -79,22 +112,6 @@ namespace DiscordBot.Modules
 
         [Command("change")]
         public async Task ChangePrefix()
-        {
-
-        }
-    }
-
-    [Group("clean")]
-    public class CleanModule : ModuleBase
-    {
-        [Command]
-        public async Task Clean()
-        {
-
-        }
-
-        [Command("delmsgoncmd")]
-        public async Task DeleteMessageOnCmd()
         {
 
         }
@@ -127,78 +144,6 @@ namespace DiscordBot.Modules
 
         [Command("disable")]
         public async Task DisableGroup()
-        {
-
-        }
-    }
-
-    [Group("donators")]
-    public class DonatorsModule : ModuleBase<SocketCommandContext>
-    {
-        [Command]
-        public async Task Donators()
-        {
-
-        }
-
-        [Command("add")]
-        public async Task AddDonator()
-        {
-
-        }
-
-        [Command("remove")]
-        public async Task RemoveDonator()
-        {
-
-        }
-    }
-
-    [Group("voicechannel")]
-    public class VoiceChannel : ModuleBase
-    {
-        [Command]
-        public async Task Voice()
-        {
-
-        }
-
-        [Command("create")]
-        public async Task CreateVoice()
-        {
-
-        }
-
-        [Command("delete")]
-        public async Task DeleteVoice()
-        {
-
-        }
-    }
-
-    [Group("textchannel")]
-    public class TextChannel : ModuleBase
-    {
-        [Command]
-        public async Task Text()
-        {
-
-        }
-
-        [Command("create")]
-        public async Task CreateText()
-        {
-
-        }
-
-        [Command("delete")]
-        public async Task DeleteText()
-        {
-
-        }
-
-        [Command("settopic")]
-        public async Task SetTopicText()
         {
 
         }

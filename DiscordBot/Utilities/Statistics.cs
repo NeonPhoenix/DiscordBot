@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiscordBot.Modules
+namespace DiscordBot.Utilities
 {
-    class MusicCommands
+    public class Statistics
     {
+
     }
 }

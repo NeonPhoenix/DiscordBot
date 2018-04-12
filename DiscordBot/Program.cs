@@ -1,75 +1,55 @@
-﻿using System;
+﻿using Discord;
+using Discord.Commands;
+using Discord.WebSocket;
+using DiscordBot.Utilities;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Reflection;
 using System.Threading.Tasks;
-using Discord;
-using Discord.WebSocket;
-using Discord.Commands;
-using Microsoft.Extensions.DependencyInjection;
-
-using DiscordBot.Utilities;
 
 namespace DiscordBot
 {
     class Program
     {
-        private DiscordSocketClient _client;
-        private CommandService _commands;
-        private IServiceProvider _services;
+        private static void Main(string[] args) => new Program().Start().GetAwaiter().GetResult();
 
-        static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
+        private static CommandService commands;
+        private static DiscordSocketClient client;
+        private static IServiceProvider services;
 
-        public async Task MainAsync()
+        public static DateTime timeSinceStartup;
+
+        public async Task Start()
         {
-            var _config = new DiscordSocketConfig
-            {
-                MessageCacheSize = 100,
-                LogLevel = LogSeverity.Info
-            };
+            commands = new CommandService();
+            client = new DiscordSocketClient();
+            services = new ServiceCollection().BuildServiceProvider();
 
-            _client = new DiscordSocketClient(_config);
-            _commands = new CommandService();
-            _services = new ServiceCollection().AddSingleton(_client).AddSingleton(_commands).BuildServiceProvider();
+            timeSinceStartup = DateTime.Now;
 
-            _client.Log += Log;
+            await InstallCommands();
 
-            _client.Ready += () =>
-            {
-                return Task.CompletedTask;
-            };
-
-            await InstallCommandsAsync();
-
-            await _client.LoginAsync(TokenType.Bot, ConfigHandler.GetToken());
-            await _client.StartAsync();
+            await client.LoginAsync(TokenType.Bot, ConfigHandler.GetToken());
+            await client.StartAsync();
 
             await Task.Delay(-1);
         }
 
-        public async Task InstallCommandsAsync()
+        public static async Task InstallCommands()
         {
-            _client.MessageReceived += HandleCommandAsync;
-            await _commands.AddModulesAsync(Assembly.GetEntryAssembly());
+            client.MessageReceived += HandleCommand;
+            await commands.AddModulesAsync(Assembly.GetEntryAssembly());
         }
 
-        private Task Log(LogMessage msg)
-        {
-            Console.WriteLine(msg.ToString());
-            return Task.CompletedTask;
-        }
-
-        private async Task HandleCommandAsync(SocketMessage messageParam)
+        public static async Task HandleCommand(SocketMessage messageParam)
         {
             var message = messageParam as SocketUserMessage;
-            if (message == null) return;
-
             int argPos = 0;
-
-            if (!(message.HasCharPrefix('_', ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))) return;
-
-            var context = new SocketCommandContext(_client, message);
-            var result = await _commands.ExecuteAsync(context, argPos, _services);
-
-            if (!result.IsSuccess) { await context.Channel.SendMessageAsync(result.ErrorReason); }
+            if (message == null) return;
+            if (!(message.HasCharPrefix('?', ref argPos) || message.HasMentionPrefix(client.CurrentUser, ref argPos))) return;
+            var context = new SocketCommandContext(client, message);
+            var result = await commands.ExecuteAsync(context, argPos, services);
+            if (!result.IsSuccess) await context.Channel.SendMessageAsync(result.ErrorReason);
         }
     }
 }

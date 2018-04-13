@@ -1,6 +1,4 @@
-﻿using Discord;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace DiscordBot.Utilities
 {
@@ -24,33 +22,10 @@ namespace DiscordBot.Utilities
         {
             return false;
         }
-    }
 
-    public class TimeValue
-    {
-        public int Value { get; set; }
-        public string Identifier { get; set; }
-
-        private bool minified;
-
-        public TimeValue(string i, int v, bool minified = false)
+        public static void ReadFileToString()
         {
-            Value = v;
-            if (minified)
-            {
-                Identifier = i[0].ToString();
-            }
-            else
-            {
-                Identifier = i;
-            }
-            this.minified = minified;
-        }
-
-        public override string ToString()
-        {
-            if (minified) return Value + Identifier;
-            return Value + " " + Identifier;
+            
         }
     }
 }

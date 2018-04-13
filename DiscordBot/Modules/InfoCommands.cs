@@ -1,19 +1,17 @@
 ﻿using Discord;
 using Discord.Commands;
-using Discord.WebSocket;
 using DiscordBot.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DiscordBot.Modules
 {
     public class InfoCommands : ModuleBase<SocketCommandContext>
     {
-        [Command("ping")]
+        [Command("ping"), Summary("Returns time taken to send message to bot server.")]
         public async Task Ping()
         {
             var sw = Stopwatch.StartNew();
@@ -24,25 +22,22 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync($"{Format.Bold(Context.User.ToString())} 🏓 {(int)sw.Elapsed.TotalMilliseconds}ms").ConfigureAwait(false);
         }
 
-        [Command("help")]
-        public async Task Help()
+        [Command("help"), Summary("Gives information on commands and their usages.")]
+        public async Task HelpAsync()
         {
-
+            await Context.Channel.SendMessageAsync("Seems like this command has not been completed. Better luck next time.");
         }
 
         [Command("stats")]
-        public async Task Stats()
+        public async Task StatsAsync()
         {
             TimeSpan timeSinceStart = DateTime.Now.Subtract(Program.timeSinceStartup);
+
+            await Context.Channel.SendMessageAsync("Seems like this command has not been completed. Better luck next time.");
         }
 
-        [Command("shard")]
-        public async Task Shard()
-        {
-
-        }
-
-        [Command("guildinfo")]
+        [Command("guildinfo"), Summary("Returns information about the current Guild or Server.")]
+        [Alias("serverinfo")]
         [RequireContext(ContextType.Guild)]
         public async Task ServerInfo()
         {
@@ -68,8 +63,8 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync("test", false, embed, null).ConfigureAwait(false);
         }
 
-        [Command("whois")]
-        [RequireContext(ContextType.Guild)]
+        [Command("whois"), Summary("Returns information about the current user, or the user parameter, if one passed.")]
+        [Alias("user", "userinfo")]
         public async Task Info(IGuildUser usr = null)
         {
             var user = usr ?? Context.User as IGuildUser;

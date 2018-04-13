@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using DiscordBot.Init;
 using DiscordBot.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -27,10 +28,15 @@ namespace DiscordBot
 
             timeSinceStartup = DateTime.Now;
 
+            ImageInitialization.Init();
+            Console.WriteLine("Initialization Finalised!");
+
             await InstallCommands();
+            Console.WriteLine("Commands Installed!");
 
             await client.LoginAsync(TokenType.Bot, ConfigHandler.GetToken());
             await client.StartAsync();
+            Console.WriteLine("Async Started!");
 
             await Task.Delay(-1);
         }

@@ -160,6 +160,7 @@
     <Compile Include="Handler\LogHandler.cs" />
     <Compile Include="Modules\AdminCommands.cs" />
     <Compile Include="Modules\CoreCommands.cs" />
+    <Compile Include="Modules\InfoCommands.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Handler\ConfigHandler.cs" />

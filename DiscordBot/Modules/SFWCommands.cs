@@ -19,6 +19,14 @@ namespace DiscordBot.Modules
         }
 
         [Command("kiss")]
+        public async Task KissAsync()
+        {
+            string img = ImageInitialization.Kiss[ran.Next(0, ImageInitialization.Kiss.Count)];
+            var em = Embed(Context, null, null, img);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("kiss")]
         public async Task KissAsync(IUser usr)
         {
             string img = ImageInitialization.Kiss[ran.Next(0, ImageInitialization.Kiss.Count)];

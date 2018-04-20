@@ -8,13 +8,26 @@ namespace DiscordBot.Modules
     public class AdminCommands : ModuleBase<SocketCommandContext>
     {
         [Group("clean")]
-        public class CleanModule
+        public class CleanCommand : ModuleBase
         {
-            //[Command]
-            //public async Task CleanDefaultAsync(int count = 10) => IMessage(count);
+            [Command]
+            public async Task CleanAsync()
+            {
+                
+            }
 
-            [Command("messages")]
-            public async Task CleanMessagesAsync(int count = 10) { }
+            [Command]
+            public async Task CleanAsync(int count)
+            {
+                var msg = await Context.Channel.GetMessagesAsync(count + 1).Flatten();
+                await Context.Channel.DeleteMessagesAsync(msg);
+            }
+
+            [Command]
+            public async Task CleanAsync(IGuildUser user, int count = 100)
+            {
+
+            }
         }
 
         [Command("ban")]
@@ -26,7 +39,7 @@ namespace DiscordBot.Modules
         [Command("reloadimages")]
         public async Task ReloadImageAsync()
         {
-            ImageInitialization.ClearList();
+            ImageInitialization.Clear();
             ImageInitialization.Init();
             await Context.Channel.SendMessageAsync("Reload Complete!");
         }

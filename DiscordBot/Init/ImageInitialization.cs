@@ -30,7 +30,7 @@ namespace DiscordBot.Init
             
         }
 
-        public static void ClearList()
+        public static void Clear()
         {
             Kiss.Clear();
             Tickle.Clear();

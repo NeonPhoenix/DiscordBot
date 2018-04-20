@@ -8,7 +8,7 @@ namespace DiscordBot.Utilities
     {
         public string Token;
 
-        public const string BotName = "NeonBot";
+        public const string BotName = "Aphrodite Rose";
         public const string DatabaseCon = "";
         public const string Version = "0.0.1";
 

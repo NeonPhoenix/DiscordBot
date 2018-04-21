@@ -51,6 +51,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>2FF404C9028BEC0EA7DE3FE8779EEDA64CF53B8F</ManifestCertificateThumbprint>

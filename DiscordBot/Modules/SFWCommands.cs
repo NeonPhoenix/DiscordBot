@@ -11,16 +11,19 @@ namespace DiscordBot.Modules
         private static EmbedBuilder embed;
         Random ran = new Random();
 
-        private static EmbedBuilder Embed(SocketCommandContext context, IUser usr, string action, string img, string msg)
+        private static EmbedBuilder Embed(SocketCommandContext context, IUser usr, string action, string img, string[] msg)
         {
+            string temp = string.Join(" ", msg);
+            //foreach(var m in msg) { temp += string.Join(" ", msg); }
+
             if(usr == null)
             {
-                embed = new EmbedBuilder().WithTitle($"{context.Message.Author.Username} " + action + " everyone!" + msg);
+                embed = new EmbedBuilder().WithTitle($"{context.Message.Author.Username} " + action + " everyone!" + temp);
                 if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { embed.WithImageUrl(img); }
             }
             else
             {
-                embed = new EmbedBuilder().WithTitle($"{context.Message.Author.Username} " + action + $" {usr.Username} " + msg);
+                embed = new EmbedBuilder().WithTitle($"{context.Message.Author.Username} " + action + $" {usr.Username} " + temp);
                 if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { embed.WithImageUrl(img); }
             }
 
@@ -28,7 +31,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("kiss")]
-        public async Task KissAsync(IUser usr = null, string msg = null)
+        public async Task KissAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Kiss[ran.Next(0, ImageInitialization.Kiss.Count)];
             var em = Embed(Context, usr, "kisses", img, msg);
@@ -36,7 +39,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("tickle")]
-        public async Task TickleAsync(IUser usr = null, string msg = null)
+        public async Task TickleAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Tickle[ran.Next(0, ImageInitialization.Tickle.Count)];
             var em = Embed(Context, usr, "tickles", img, msg);
@@ -44,7 +47,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("pinch")]
-        public async Task PinchAsync(IUser usr = null, string msg = null)
+        public async Task PinchAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Pinch[ran.Next(0, ImageInitialization.Pinch.Count)];
             var em = Embed(Context, usr, "pinches", img, msg);
@@ -52,7 +55,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("wave")]
-        public async Task WaveAsync(IUser usr = null, string msg = null)
+        public async Task WaveAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Wave[ran.Next(0, ImageInitialization.Wave.Count)];
             var em = Embed(Context, usr, "waves at", img, msg);
@@ -60,7 +63,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("rude")]
-        public async Task RudeAsync(IUser usr = null, string msg = null)
+        public async Task RudeAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Rude[ran.Next(0, ImageInitialization.Rude.Count)];
             var em = Embed(Context, usr, "flips off", img, msg);
@@ -68,7 +71,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("cake")]
-        public async Task CakeAsync(IUser usr = null, string msg = null)
+        public async Task CakeAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Cake[ran.Next(0, ImageInitialization.Cake.Count)];
             var em = Embed(Context, usr, "gives cake to", img, msg);
@@ -76,7 +79,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("cuddle")]
-        public async Task CuddleAsync(IUser usr = null, string msg = null)
+        public async Task CuddleAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Cuddle[ran.Next(0, ImageInitialization.Cuddle.Count)];
             var em = Embed(Context, usr, "cuddles", img, msg);
@@ -84,7 +87,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("glare")]
-        public async Task GlaresAsync(IUser usr = null, string msg = null)
+        public async Task GlaresAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Glare[ran.Next(0, ImageInitialization.Glare.Count)];
             var em = Embed(Context, usr, "glares at", img, msg);
@@ -92,7 +95,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("highfive")]
-        public async Task HighfiveAsync(IUser usr = null, string msg = null)
+        public async Task HighfiveAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Highfive[ran.Next(0, ImageInitialization.Highfive.Count)];
             var em = Embed(Context, usr, "highfives", img, msg);
@@ -100,7 +103,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("hug")]
-        public async Task HugAsync(IUser usr = null, string msg = null)
+        public async Task HugAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Hug[ran.Next(0, ImageInitialization.Hug.Count)];
             var em = Embed(Context, usr, "hugs", img, msg);
@@ -108,23 +111,23 @@ namespace DiscordBot.Modules
         }
 
         [Command("poke")]
-        public async Task PokeAsync(IUser usr = null, string msg = null)
+        public async Task PokeAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Poke[ran.Next(0, ImageInitialization.Poke.Count)];
-            var em = Embed(Context, usr, "kisses", img, msg);
+            var em = Embed(Context, usr, "pokes", img, msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 
         [Command("punch")]
-        public async Task PunchAsync(IUser usr = null, string msg = null)
+        public async Task PunchAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Punch[ran.Next(0, ImageInitialization.Punch.Count)];
             var em = Embed(Context, usr, "punches", img, msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 
-        [Command("pat")]
-        public async Task PatAsync(IUser usr = null, string msg = null)
+        [Command("pat"), Alias("pet")]
+        public async Task PatAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Pat[ran.Next(0, ImageInitialization.Pat.Count)];
             var em = Embed(Context, usr, "pats", img, msg);
@@ -132,7 +135,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("slap")]
-        public async Task SlapAsync(IUser usr = null, string msg = null)
+        public async Task SlapAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Slap[ran.Next(0, ImageInitialization.Slap.Count)];
             var em = Embed(Context, usr, "slaps", img, msg);
@@ -140,10 +143,18 @@ namespace DiscordBot.Modules
         }
 
         [Command("bite")]
-        public async Task BiteAsync(IUser usr = null, string msg = null)
+        public async Task BiteAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Bite[ran.Next(0, ImageInitialization.Bite.Count)];
             var em = Embed(Context, usr, "bites", img, msg);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("lick")]
+        public async Task LickAsync(IUser usr = null, params string[] msg)
+        {
+            string img = ImageInitialization.Lick[ran.Next(0, ImageInitialization.Lick.Count)];
+            var em = Embed(Context, usr, "licks", img, msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
     }

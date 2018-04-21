@@ -25,6 +25,7 @@ namespace DiscordBot.Init
             Pat = ReadFileToList("pat.txt");
             Slap = ReadFileToList("slap.txt");
             Bite = ReadFileToList("bite.txt");
+            Lick = ReadFileToList("lick.txt");
 
             //NSFW Image Files
             
@@ -47,6 +48,7 @@ namespace DiscordBot.Init
             Pat.Clear();
             Slap.Clear();
             Bite.Clear();
+            Lick.Clear();
         }
 
         public static List<string> Kiss;
@@ -64,6 +66,7 @@ namespace DiscordBot.Init
         public static List<string> Pat;
         public static List<string> Slap;
         public static List<string> Bite;
+        public static List<string> Lick;
 
         private static List<string> ReadFileToList(string textFile)
         {

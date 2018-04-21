@@ -1,6 +1,5 @@
 ﻿using Discord;
 using Discord.Commands;
-using DiscordBot.Utilities;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -100,7 +99,7 @@ namespace DiscordBot.Modules
                 .AddField(fb => fb.WithName("Region").WithValue(Context.Guild.VoiceRegionId.ToString()).WithIsInline(true))
                 .AddField(fb => fb.WithName("Roles").WithValue((Context.Guild.Roles.Count - 1).ToString()).WithIsInline(true))
                 .AddField(fb => fb.WithName("Features").WithValue(features).WithIsInline(true))
-                .WithColor(Reference.OK_COLOR);
+                .WithColor(114, 137, 218);
 
             if (Uri.IsWellFormedUriString(Context.Guild.IconUrl, UriKind.Absolute)) { embed.WithImageUrl(Context.Guild.IconUrl); }
 
@@ -132,7 +131,7 @@ namespace DiscordBot.Modules
                  .AddField(fb => fb.WithName("Joined On:").WithValue($"{user.JoinedAt?.ToString("dd.MM.yyyy HH:mm") ?? "?"}").WithIsInline(true))
                  .AddField(fb => fb.WithName("Created On:").WithValue($"{user.CreatedAt:dd.MM.yyyy HH:mm}").WithIsInline(true))
                  .AddField(fb => fb.WithName("Roles:").WithValue(r).WithIsInline(false))
-                 .WithColor(Reference.OK_COLOR);
+                 .WithColor(114, 137, 218);
 
             if (user.AvatarId != null) { embed.WithThumbnailUrl(user.GetAvatarUrl()); }
 

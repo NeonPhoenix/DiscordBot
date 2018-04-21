@@ -265,6 +265,9 @@
     <Content Include="Content\SFW\kiss.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\SFW\lick.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\SFW\pat.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

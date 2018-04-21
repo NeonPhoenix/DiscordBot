@@ -8,6 +8,7 @@ namespace DiscordBot.Modules
     public class AdminCommands : ModuleBase<SocketCommandContext>
     {
         [Group("clean")]
+        [RequireUserPermission(GuildPermission.ManageChannels)]
         public class CleanCommand : ModuleBase
         {
             [Command]
@@ -31,12 +32,15 @@ namespace DiscordBot.Modules
         }
 
         [Command("ban")]
+        [RequireUserPermission(GuildPermission.BanMembers)]
         public async Task BanAsync(IGuildUser user)
         {
 
         }
 
         [Command("reloadimages")]
+        [Summary("Reload Image list for SFW and NSFW Commands.")]
+        [RequireUserPermission(GuildPermission.Administrator)]
         public async Task ReloadImageAsync()
         {
             ImageInitialization.Clear();

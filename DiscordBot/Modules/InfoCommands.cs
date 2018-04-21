@@ -11,7 +11,8 @@ namespace DiscordBot.Modules
 {
     public class InfoCommands : ModuleBase<SocketCommandContext>
     {
-        [Command("ping"), Summary("Returns time taken to send message to bot server.")]
+        [Command("ping")]
+        [Summary("Returns time taken to send message to bot server.")]
         public async Task Ping()
         {
             var sw = Stopwatch.StartNew();
@@ -22,7 +23,8 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync($"{Format.Bold(Context.User.ToString())} 🏓 {(int)sw.Elapsed.TotalMilliseconds}ms").ConfigureAwait(false);
         }
 
-        [Command("help"), Summary("Gives information on commands and their usages.")]
+        [Command("help")]
+        [Summary("Gives information on commands and their usages.")]
         public async Task HelpAsync()
         {
             await Context.Channel.SendMessageAsync("Seems like this command has not been completed. Better luck next time.");
@@ -31,14 +33,11 @@ namespace DiscordBot.Modules
         [Command("stats")]
         public async Task StatsAsync()
         {
-            TimeSpan timeSinceStart = DateTime.Now.Subtract(Program.timeSinceStartup);
-
             await Context.Channel.SendMessageAsync("Seems like this command has not been completed. Better luck next time.");
         }
 
-        [Command("guildinfo"), Summary("Returns information about the current Guild or Server.")]
-        [Alias("serverinfo")]
-        [RequireContext(ContextType.Guild)]
+        [Command("guildinfo"), Alias("serverinfo")]
+        [Summary("Returns information about the current Guild or Server.")]
         public async Task ServerInfo()
         {
             var createdAt = new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(Context.Guild.Id >> 22);
@@ -63,8 +62,8 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync("test", false, embed, null).ConfigureAwait(false);
         }
 
-        [Command("whois"), Summary("Returns information about the current user, or the user parameter, if one passed.")]
-        [Alias("user", "userinfo")]
+        [Command("whois"), Alias("user", "userinfo")]
+        [Summary("Returns information about the current user, or the user parameter, if one passed.")]
         public async Task Info(IGuildUser usr = null)
         {
             var user = usr ?? Context.User as IGuildUser;

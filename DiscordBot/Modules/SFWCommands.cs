@@ -126,11 +126,19 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 
-        [Command("pat"), Alias("pet")]
+        [Command("pat")]
         public async Task PatAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Pat[ran.Next(0, ImageInitialization.Pat.Count)];
             var em = Embed(Context, usr, "pats", img, msg);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+        
+        [Command("pet")
+        public async Task PetAsync(IUser usr = null, params string[] msg)
+        {
+            string img = ImageInitialization.Pat[ran.Next(0, ImageInitialization.Pat.Count)];
+            var em = Embed(Context, use, "pets", img, msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 

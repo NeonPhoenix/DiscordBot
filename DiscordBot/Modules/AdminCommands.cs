@@ -8,7 +8,7 @@ namespace DiscordBot.Modules
 {
     public class AdminCommands : ModuleBase<SocketCommandContext>
     {
-        privare readonly CommandService _service;
+        private readonly CommandService _service;
         private readonly IConfigurationRoot _config;
         
         public AdminCommands(CommandService service, IConfigurationRoot config)
@@ -42,7 +42,7 @@ namespace DiscordBot.Modules
             var builder = new EmbedBuilder() { Color = new Color(114, 137, 218) };
             builder.AddField($"Current set prefix is {prefix}!");
             
-            await ReplyAsync("", false, builder.Build();
+            await ReplyAsync("", false, builder.Build());
         }
         
         [Command("prefix"), Priority(0)]

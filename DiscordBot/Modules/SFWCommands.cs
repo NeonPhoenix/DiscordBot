@@ -168,7 +168,7 @@ namespace DiscordBot.Modules
         [Command("parrot"), Alias("groove")]
         public async Task ParrotAsync(IUser usr = null, params string[] msg)
         {
-            string img = "http://i.imgur.com/umR3aFO";
+            string img = "https://i.imgur.com/pTUXcmI.gif";
             var em = Embed(Context, usr, "grooves with", img, msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }

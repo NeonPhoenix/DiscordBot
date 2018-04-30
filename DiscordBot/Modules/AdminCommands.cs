@@ -37,6 +37,7 @@ namespace DiscordBot.Modules
         }
         
         [Command("prefix"), Priority(1)]
+        [RequireUserPermission(GuildPermission.ManageGuild)]
         public async Task PrefixAsysnc()
         {
             string prefix = _config["Prefix"];          
@@ -44,6 +45,7 @@ namespace DiscordBot.Modules
         }
         
         [Command("prefix"), Priority(0)]
+        [RequireUserPermission(GuildPermission.ManageGuild)]
         public async Task PrefixAsync(string prefix)
         {
             _config.GetSection("Prefix").Value = prefix;

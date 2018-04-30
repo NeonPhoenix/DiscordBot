@@ -14,7 +14,7 @@ namespace DiscordBot.Modules
         public AdminCommands(CommandService service, IConfigurationRoot config)
         {
             _service = service;
-            _config - config;
+            _config = config;
         }
     
         [Command("kick")]

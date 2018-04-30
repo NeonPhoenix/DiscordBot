@@ -134,7 +134,7 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
         
-        [Command("pet")
+        [Command("pet")]
         public async Task PetAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Pat[ran.Next(0, ImageInitialization.Pat.Count)];
@@ -163,6 +163,14 @@ namespace DiscordBot.Modules
         {
             string img = ImageInitialization.Lick[ran.Next(0, ImageInitialization.Lick.Count)];
             var em = Embed(Context, usr, "licks", img, msg);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+        
+        [Command("parrot"), Alias("groove")]
+        public async Task ParrotAsync(IUser usr = null, params string[] msg)
+        {
+            string img = "";
+            var em = Embed(Context, usr, "grooves with", img, msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
     }

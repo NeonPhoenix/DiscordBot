@@ -52,7 +52,7 @@ namespace DiscordBot.Modules
             _config.GetSection("Prefix").Bind(prefix);
             builder.AddField($"Prefix has been changed to {prefix}!");
             
-            await ReplyAsync("", false, builder.Build();
+            await ReplyAsync("", false, builder.Build());
         }
     }
 }

@@ -14,7 +14,6 @@ namespace DiscordBot.Modules
         private static EmbedBuilder Embed(SocketCommandContext context, IUser usr, string action, string img, string[] msg)
         {
             string temp = string.Join(" ", msg);
-            //foreach(var m in msg) { temp += string.Join(" ", msg); }
 
             if(usr == null)
             {
@@ -169,7 +168,7 @@ namespace DiscordBot.Modules
         [Command("parrot"), Alias("groove")]
         public async Task ParrotAsync(IUser usr = null, params string[] msg)
         {
-            string img = "";
+            string img = "http://i.imgur.com/umR3aFO";
             var em = Embed(Context, usr, "grooves with", img, msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }

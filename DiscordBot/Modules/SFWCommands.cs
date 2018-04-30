@@ -137,7 +137,7 @@ namespace DiscordBot.Modules
         public async Task PetAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Pat[ran.Next(0, ImageInitialization.Pat.Count)];
-            var em = Embed(Context, use, "pets", img, msg);
+            var em = Embed(Context, usr, "pets", img, msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 

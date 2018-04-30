@@ -39,21 +39,15 @@ namespace DiscordBot.Modules
         [Command("prefix"), Priority(1)]
         public async Task PrefixAsysnc()
         {
-            string prefix = _config["Prefix"];
-            var builder = new EmbedBuilder() { Color = new Color(114, 137, 218) };
-            builder.AddField($"Current set prefix is {prefix}!");
-            
-            await ReplyAsync("", false, builder.Build());
+            string prefix = _config["Prefix"];          
+            await ReplyAsync($"Current set prefix is {prefix}!");
         }
         
         [Command("prefix"), Priority(0)]
         public async Task PrefixAsync(string prefix)
         {
-            var builder = new EmbedBuilder() { Color = new Color(114, 137, 218) };
-            _config.GetSection("Prefix").Bind(prefix);
-            builder.AddField($"Prefix has been changed to {prefix}!");
-            
-            await ReplyAsync("", false, builder.Build());
+            _config.GetSection("Prefix").Value = prefix;
+            await ReplyAsync($"Prefix has been changed to {prefix}!");
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DiscordBot.Modules
 {
-    public class SFWCommands : ModuleBase<SocketCommandContext>
+    public class ReactionCommands : ModuleBase<SocketCommandContext>
     {  
         Random ran = new Random();
 

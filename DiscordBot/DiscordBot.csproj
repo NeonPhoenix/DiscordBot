@@ -238,7 +238,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <Content Include="Content\Config\_configuration.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
   </ItemGroup>

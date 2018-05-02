@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using DiscordBot.Init;
+using System.Threading.Tasks;
 
 namespace DiscordBot.Modules
 {

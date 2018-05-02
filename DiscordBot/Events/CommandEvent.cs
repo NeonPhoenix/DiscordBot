@@ -8,7 +8,7 @@ namespace DiscordBot.Events
     {
         private static EmbedBuilder embed;
 
-        public static EmbedBuilder Embed(SocketCommandContext context, IUser usr, string action, string img, string[] msg)
+        public static EmbedBuilder ReactionEmbed(SocketCommandContext context, IUser usr, string action, string img, string[] msg)
         {
             string temp = string.Join(" ", msg);
 
@@ -24,6 +24,11 @@ namespace DiscordBot.Events
             }
 
             return embed;
+        }
+
+        internal static object RolePlayEmbed(SocketCommandContext context, object p, string bodyPart, string img)
+        {
+            throw new NotImplementedException();
         }
     }
 }

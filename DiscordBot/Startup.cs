@@ -36,6 +36,9 @@ namespace DiscordBot
             provider.GetRequiredService<LoggingService>();
             provider.GetRequiredService<CommandHandler>();
 
+            //var updater = new UpdateHandler();
+            //updater.StartUpdateCheck();
+
             ImageInitialization.Init();
 
             await provider.GetRequiredService<StartupService>().StartAsync();       

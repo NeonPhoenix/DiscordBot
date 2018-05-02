@@ -13,12 +13,7 @@ namespace DiscordBot.Handler
         private readonly IConfigurationRoot _config;
         private readonly IServiceProvider _provider;
 
-        // DiscordSocketClient, CommandService, IConfigurationRoot, and IServiceProvider are injected automatically from the IServiceProvider
-        public CommandHandler(
-            DiscordSocketClient discord,
-            CommandService commands,
-            IConfigurationRoot config,
-            IServiceProvider provider)
+        public CommandHandler(DiscordSocketClient discord, CommandService commands, IConfigurationRoot config, IServiceProvider provider)
         {
             _discord = discord;
             _commands = commands;
@@ -30,19 +25,18 @@ namespace DiscordBot.Handler
 
         private async Task OnMessageReceivedAsync(SocketMessage s)
         {
-            var msg = s as SocketUserMessage;     // Ensure the message is from a user/bot
+            var msg = s as SocketUserMessage;
             if (msg == null) return;
-            if (msg.Author.Id == _discord.CurrentUser.Id) return;     // Ignore self when checking commands
+            if (msg.Author.Id == _discord.CurrentUser.Id) return;     
 
-            var context = new SocketCommandContext(_discord, msg);     // Create the command context
+            var context = new SocketCommandContext(_discord, msg);
 
-            int argPos = 0;     // Check if the message has a valid command prefix
+            int argPos = 0;     
             if (msg.HasStringPrefix(_config["prefix"], ref argPos) || msg.HasMentionPrefix(_discord.CurrentUser, ref argPos))
             {
-                var result = await _commands.ExecuteAsync(context, argPos, _provider);     // Execute the command
+                var result = await _commands.ExecuteAsync(context, argPos, _provider);
 
-                if (!result.IsSuccess)     // If not successful, reply with the error.
-                    await context.Channel.SendMessageAsync(result.ToString());
+                if (!result.IsSuccess) { await context.Channel.SendMessageAsync(result.ToString()); }
             }
         }
     }

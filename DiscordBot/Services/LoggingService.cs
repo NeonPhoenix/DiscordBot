@@ -2,6 +2,7 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@ namespace DiscordBot.Services
 
         private string _logDirectory { get; }
         private string _logFile => Path.Combine(_logDirectory, $"{DateTime.UtcNow.ToString("yyyy-MM-dd")}.txt");
+
+        public static string _consolePrefix = $"{DateTime.UtcNow.ToString("hh:mm:ss")}";
 
         public LoggingService(DiscordSocketClient discord, CommandService commands)
         {

@@ -223,7 +223,7 @@
   <ItemGroup>
     <Compile Include="Events\CommandEvent.cs" />
     <Compile Include="Handler\CommandHandler.cs" />
-    <Compile Include="Handler\UpdateHandler.cs" />
+    <Compile Include="Modules\BotCommands.cs" />
     <Compile Include="Modules\NSFWCommands.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Init\ImageInitialization.cs" />
@@ -240,59 +240,58 @@
     <Content Include="Content\Config\_configuration.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\Config\_manifest.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\SFW\bite.txt">
+    <Content Include="Content\Reactions\bite.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\cake.txt">
+    <Content Include="Content\Reactions\cake.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\cuddle.txt">
+    <Content Include="Content\Reactions\cuddle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\glare.txt">
+    <Content Include="Content\Reactions\glare.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\highfive.txt">
+    <Content Include="Content\Reactions\highfive.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\hug.txt">
+    <Content Include="Content\Reactions\hug.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\kiss.txt">
+    <Content Include="Content\Reactions\kiss.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\lick.txt">
+    <Content Include="Content\Reactions\lick.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\pat.txt">
+    <Content Include="Content\Reactions\pat.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\pinch.txt">
+    <Content Include="Content\Reactions\pinch.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\poke.txt">
+    <Content Include="Content\Reactions\poke.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\punch.txt">
+    <Content Include="Content\Reactions\punch.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\rude.txt">
+    <Content Include="Content\Reactions\rude.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\slap.txt">
+    <Content Include="Content\Reactions\slap.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\tickle.txt">
+    <Content Include="Content\Reactions\tickle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SFW\wave.txt">
+    <Content Include="Content\Reactions\wave.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

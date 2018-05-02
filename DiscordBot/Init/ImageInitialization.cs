@@ -70,7 +70,7 @@ namespace DiscordBot.Init
 
         private static List<string> ReadFileToList(string textFile)
         {
-            List<string> allLinesText = File.ReadAllLines(Environment.CurrentDirectory + @"\content\SFW\" + textFile).ToList();
+            List<string> allLinesText = File.ReadAllLines(Environment.CurrentDirectory + @"\content\Reactions\" + textFile).ToList();
             return allLinesText;
         }
     }

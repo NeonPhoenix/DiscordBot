@@ -135,7 +135,7 @@ namespace DiscordBot.Modules
         public async Task GlaresAsync(IUser usr = null, params string[] msg)
         {
             string img = ImageInitialization.Glare[ran.Next(0, ImageInitialization.Glare.Count)];
-            var em = CommandEvent.ReactionEmbed(Context, null, "glares at", img, msg);
+            var em = CommandEvent.ReactionEmbed(Context, usr, "glares at", img, msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 

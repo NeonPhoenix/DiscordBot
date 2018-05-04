@@ -2,6 +2,7 @@
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DiscordBot.Handler
@@ -30,9 +31,12 @@ namespace DiscordBot.Handler
             if (msg.Author.Id == _discord.CurrentUser.Id) return;     
 
             var context = new SocketCommandContext(_discord, msg);
-
+            
+            string prefix = "";
+            if (msg.Content.Contains(_config["prefix"])) { prefix = _config["prefix"]; } else { prefix = _config["prefix"].ToUpper(); }
+            
             int argPos = 0;     
-            if (msg.HasStringPrefix(_config["prefix"], ref argPos) || msg.HasMentionPrefix(_discord.CurrentUser, ref argPos))
+            if (msg.HasStringPrefix(prefix, ref argPos) || msg.HasMentionPrefix(_discord.CurrentUser, ref argPos))
             {
                 var result = await _commands.ExecuteAsync(context, argPos, _provider);
 

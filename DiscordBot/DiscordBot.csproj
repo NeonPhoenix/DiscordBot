@@ -247,7 +247,7 @@
     <None Include="Content\Reactions\_reactions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\RolePlay\rub.json">
+    <None Include="Content\RolePlay\_roleplay.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

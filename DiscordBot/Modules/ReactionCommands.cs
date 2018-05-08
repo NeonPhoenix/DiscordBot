@@ -60,22 +60,9 @@ namespace DiscordBot.Modules
         }
 
         [Command("glare")]
-        public async Task GlaresAsync(params string[] msg)
+        public async Task GlareAsync(params string[] msg)
         {
-<<<<<<< HEAD
             var em = _emb.ReactionEmbed(Context, "glares at", msg);
-=======
-            string img = ImageInitialization.Glare[ran.Next(0, ImageInitialization.Glare.Count)];
-            var em = CommandEvent.ReactionEmbed(Context, null, "glares at", img, msg);
-            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
-        }
-
-        [Command("glare")]
-        public async Task GlaresAsync(IUser usr = null, params string[] msg)
-        {
-            string img = ImageInitialization.Glare[ran.Next(0, ImageInitialization.Glare.Count)];
-            var em = CommandEvent.ReactionEmbed(Context, usr, "glares at", img, msg);
->>>>>>> refs/remotes/origin/master
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 

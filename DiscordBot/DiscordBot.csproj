@@ -221,10 +221,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\CommandEvent.cs" />
+    <Compile Include="Builder\CommandEmbedBuilder.cs" />
+    <Compile Include="CustomPreconditions\RolePlayRoles.cs" />
+    <Compile Include="Events\CommandMessageEvent.cs" />
     <Compile Include="Handler\CommandHandler.cs" />
+    <Compile Include="Handler\ImageEvent.cs" />
+    <Compile Include="Model\RolePlayModel.cs" />
     <Compile Include="Modules\BotCommands.cs" />
-    <Compile Include="Modules\NSFWCommands.cs" />
+    <Compile Include="Modules\RolePlayCommands.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Init\ImageInitialization.cs" />
     <Compile Include="Modules\AdminCommands.cs" />
@@ -240,10 +244,17 @@
     <Content Include="Content\Config\_configuration.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Content\Reactions\_reactions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\RolePlay\rub.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\" />
+    <Folder Include="Context\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Reactions\bite.txt">

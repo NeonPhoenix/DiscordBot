@@ -27,15 +27,25 @@ namespace DiscordBot.Handler
         private async Task OnMessageReceivedAsync(SocketMessage s)
         {
             var msg = s as SocketUserMessage;
+
             if (msg == null) return;
             if (msg.Author.Id == _discord.CurrentUser.Id) return;     
 
             var context = new SocketCommandContext(_discord, msg);
+<<<<<<< HEAD
+
+            int argPos = 0;
+
+            string prefix = "";
+            if (msg.Content.Contains(_config["prefix"])) { prefix = _config["prefix"]; } else { prefix = _config["prefix"].ToUpper(); }
+
+=======
             
             string prefix = "";
             if (msg.Content.Contains(_config["prefix"])) { prefix = _config["prefix"]; } else { prefix = _config["prefix"].ToUpper(); }
             
             int argPos = 0;     
+>>>>>>> refs/remotes/origin/master
             if (msg.HasStringPrefix(prefix, ref argPos) || msg.HasMentionPrefix(_discord.CurrentUser, ref argPos))
             {
                 var result = await _commands.ExecuteAsync(context, argPos, _provider);

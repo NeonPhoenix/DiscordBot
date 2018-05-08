@@ -7,28 +7,31 @@ namespace DiscordBot.Init
 {
     public class ImageInitialization
     {
+        private static string reactionFolder = @"\Content\Reactions\";
+        private static string roleplayFolder = @"\Content\RolePlay\";
+
         public static void Init()
         {
-            //SFW Image Files
-            Kiss = ReadFileToList("kiss.txt");
-            Tickle = ReadFileToList("tickle.txt");
-            Pinch = ReadFileToList("pinch.txt");
-            Wave = ReadFileToList("wave.txt");
-            Rude = ReadFileToList("rude.txt");
-            Cake = ReadFileToList("cake.txt");
-            Cuddle = ReadFileToList("cuddle.txt");
-            Glare = ReadFileToList("glare.txt");
-            Highfive = ReadFileToList("highfive.txt");
-            Hug = ReadFileToList("hug.txt");
-            Poke = ReadFileToList("poke.txt");
-            Punch = ReadFileToList("punch.txt");
-            Pat = ReadFileToList("pat.txt");
-            Slap = ReadFileToList("slap.txt");
-            Bite = ReadFileToList("bite.txt");
-            Lick = ReadFileToList("lick.txt");
+            //Reaction Image Files
+            Kiss = ReadFileToList("kiss.txt", reactionFolder);
+            Tickle = ReadFileToList("tickle.txt", reactionFolder);
+            Pinch = ReadFileToList("pinch.txt", reactionFolder);
+            Wave = ReadFileToList("wave.txt", reactionFolder);
+            Rude = ReadFileToList("rude.txt", reactionFolder);
+            Cake = ReadFileToList("cake.txt", reactionFolder);
+            Cuddle = ReadFileToList("cuddle.txt", reactionFolder);
+            Glare = ReadFileToList("glare.txt", reactionFolder);
+            Highfive = ReadFileToList("highfive.txt", reactionFolder);
+            Hug = ReadFileToList("hug.txt", reactionFolder);
+            Poke = ReadFileToList("poke.txt", reactionFolder);
+            Punch = ReadFileToList("punch.txt", reactionFolder);
+            Pat = ReadFileToList("pat.txt", reactionFolder);
+            Slap = ReadFileToList("slap.txt", reactionFolder);
+            Bite = ReadFileToList("bite.txt", reactionFolder);
+            Lick = ReadFileToList("lick.txt", reactionFolder);
 
-            //NSFW Image Files
-            
+            //RolePlay Image Files
+            //RubLegs = ReadFileToList("rub.txt", roleplayFolder);
         }
 
         public static void Clear()
@@ -51,26 +54,12 @@ namespace DiscordBot.Init
             Lick.Clear();
         }
 
-        public static List<string> Kiss;
-        public static List<string> Tickle;
-        public static List<string> Pinch;
-        public static List<string> Wave;
-        public static List<string> Rude;
-        public static List<string> Cake;
-        public static List<string> Cuddle;
-        public static List<string> Glare;
-        public static List<string> Highfive;
-        public static List<string> Hug;
-        public static List<string> Poke;
-        public static List<string> Punch;
-        public static List<string> Pat;
-        public static List<string> Slap;
-        public static List<string> Bite;
-        public static List<string> Lick;
+        public static List<string> Kiss, Tickle, Pinch, Wave, Rude, Cake, Cuddle, Glare, Highfive, Hug, Poke, Punch, Pat, Slap, Bite, Lick;
+        public static List<string> RubLegs;
 
-        private static List<string> ReadFileToList(string textFile)
+        private static List<string> ReadFileToList(string textFile, string folder)
         {
-            List<string> allLinesText = File.ReadAllLines(Environment.CurrentDirectory + @"\content\Reactions\" + textFile).ToList();
+            List<string> allLinesText = File.ReadAllLines(Environment.CurrentDirectory + folder + textFile).ToList();
             return allLinesText;
         }
     }

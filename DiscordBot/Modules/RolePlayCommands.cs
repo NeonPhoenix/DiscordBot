@@ -20,7 +20,6 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 
-
         #region User only commands
         [Command("french")]
         public async Task FrenchAsync(SocketUser usr = null)

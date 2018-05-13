@@ -18,7 +18,13 @@ namespace DiscordBot.CustomPreconditions
             var matchingRoles = context.Guild.Roles.Where(role => roleNames.Any(name => name == role.Name.ToLower()));
             if (matchingRoles == null) { return Task.FromResult(PreconditionResult.FromError("There are no matching roles on the server.")); }
 
-            if (user.Roles.Any(role => matchingRoles.Contains(role))) { return Task.FromResult(PreconditionResult.FromSuccess()); }
+            if (user.Roles.Any(role => matchingRoles.Contains(role)))
+            {
+                if(context.Channel.Id == 412015604698972160)
+                {
+                    return Task.FromResult(PreconditionResult.FromSuccess());
+                }
+            }
 
             return Task.FromResult(PreconditionResult.FromError("The user did not have any matching roles for Role Play Commands."));
         }

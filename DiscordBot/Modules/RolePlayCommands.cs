@@ -2,7 +2,6 @@
 using Discord.WebSocket;
 using DiscordBot.Builder;
 using DiscordBot.CustomPreconditions;
-using DiscordBot.Events;
 using System;
 using System.Threading.Tasks;
 
@@ -12,7 +11,7 @@ namespace DiscordBot.Modules
     public class RolePlayCommands : ModuleBase<SocketCommandContext>
     {
         private CommandEmbedBuilder _emb = new CommandEmbedBuilder();
-        Random ran = new Random();
+        readonly Random ran = new Random();
 
         [Command("rub")]
         public async Task RubAsync(SocketUser usr, string bodyPart)
@@ -21,6 +20,8 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 
+
+        #region User only commands
         [Command("french")]
         public async Task FrenchAsync(SocketUser usr = null)
         {
@@ -35,60 +36,68 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 
-        //[Command("bind")]
-        //public async Task BindAsync(SocketUser usr = null, string bodyPart)
-        //{
+        [Command("eat")]
+        public async Task EatOutAsync(SocketUser usr = null)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "eats out");
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
 
-        //}
+        [Command("blind")]
+        public async Task BlindfoldAsync(SocketUser usr = null)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "blindfolds");
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
 
-        //[Command("suspend")]
+        [Command("choke")]
+        public async Task ChokeAsync(SocketUser usr = null)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "chokes");
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
 
-        //[Command("nibble")]
+        [Command("69")]
+        public async Task SixtyNineAsync(SocketUser usr = null)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "69's with");
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
 
-        //[Command("bite")]
+        [Command("finger")]
+        public async Task FingersAsync(SocketUser usr = null)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "fingers");
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
 
-        //[Command("lick")]
+        [Command("fist")]
+        public async Task FistAsync(SocketUser usr = null)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "fists");
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
 
-        //[Command("blind")]
+        [Command("ride")]
+        public async Task RideAsync(SocketUser usr = null)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "rides");
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
 
-        //[Command("gag")]
+        [Command("pound")]
+        public async Task PoundAsync(SocketUser usr = null)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "pounds");
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
 
-        //[Command("choke")]
-
-        //[Command("slap")]
-
-        //[Command("spank")]
-
-        //[Command("flog")]
-
-        //[Command("whip")]
-
-        //[Command("cane")]
-
-        //[Command("clamp")]
-
-        //[Command("pull")]
-
-        //[Command("eat")]
-
-        //[Command("finger")]
-
-        //[Command("fist")]
-
-        //[Command("fuck")]
-
-        //[Command("ride")]
-
-        //[Command("sit")]
-
-        //[Command("pound")]
-
-        //[Command("toy")]
-
-        //[Command("stuff")]
-
-        //[Command("cum")]
-
-        //[Command("69")]
+        [Command("toy")]
+        public async Task ToyAsync(SocketUser usr = null)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "toys with");
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+        #endregion
     }
 }

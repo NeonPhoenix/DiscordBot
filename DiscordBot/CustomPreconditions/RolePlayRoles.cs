@@ -11,11 +11,10 @@ namespace DiscordBot.CustomPreconditions
     {
         public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider service)
         {
-            string[] roleNames = { "vip, fox courtiers, fox prince, fox princess, fox king, fox queen" };
+            string[] roleNames = { "vip", "fox courtiers", "fox prince", "fox princess", "fox king", "fox queen" };
 
-            var user = context.User as SocketGuildUser;
-            if (user == null) { return Task.FromResult(PreconditionResult.FromError("The command was not used in a guild.")); }
-            
+            if (!(context.User is SocketGuildUser user)) { return Task.FromResult(PreconditionResult.FromError("The command was not used in a guild.")); }
+
             var matchingRoles = context.Guild.Roles.Where(role => roleNames.Any(name => name == role.Name.ToLower()));
             if (matchingRoles == null) { return Task.FromResult(PreconditionResult.FromError("There are no matching roles on the server.")); }
 

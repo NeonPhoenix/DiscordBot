@@ -10,8 +10,7 @@ namespace DiscordBot.Events
         {
             var indexOfChar = input.IndexOf(charItem);
             if(indexOfChar < 0) { return input; }
-            var splitIndex = indexOfChar + charItem.Length;
-            return input.Substring(0, splitIndex) + (input.Substring(splitIndex)).Replace(charItem, "");
+            return RemoveStringFromString(input.Remove(indexOfChar, 1), charItem);
         }
 
         public string GetMentionedUsername(SocketCommandContext ctx)
@@ -36,6 +35,7 @@ namespace DiscordBot.Events
             else
             {
                 userId = RemoveStringFromString(userId, "!");
+                message = RemoveStringFromString(message, "!");
                 message = message.Replace(userId, string.Empty);
                 return message;
             }

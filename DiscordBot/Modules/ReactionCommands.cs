@@ -8,7 +8,7 @@ namespace DiscordBot.Modules
     public class ReactionCommands : ModuleBase<SocketCommandContext>
     {
         private CommandEmbedBuilder _emb = new CommandEmbedBuilder();
-        Random ran = new Random();
+        private readonly Random ran = new Random();
 
         [Command("kiss")]
         public async Task KissAsync(params string[] msg)
@@ -133,6 +133,48 @@ namespace DiscordBot.Modules
         public async Task ParrotAsync(params string[] msg)
         {
             var em = _emb.ReactionEmbed(Context, "grooves with", msg);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("confused")]
+        public async Task ConfusedAsync(params string[] msg)
+        {
+            var em = _emb.ReactionEmbed(Context, "is confused by", msg);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("pout")]
+        public async Task PoutAsync(params string[] msg)
+        {
+            var em = _emb.ReactionEmbed(Context, "pouts at", msg);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("stare")]
+        public async Task StareAsync(params string[] msg)
+        {
+            var em = _emb.ReactionEmbed(Context, "stares at", msg);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("cry")]
+        public async Task CryAsync(params string[] msg)
+        {
+            var em = _emb.ReactionEmbed(Context, "cries at", msg);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("smug")]
+        public async Task SmugAsync(params string[] msg)
+        {
+            var em = _emb.ReactionEmbed(Context, "smug", msg);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("lewd")]
+        public async Task LewdAsync(params string[] msg)
+        {
+            var em = _emb.ReactionEmbed(Context, "lewd", msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
     }

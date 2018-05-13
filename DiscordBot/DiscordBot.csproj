@@ -223,7 +223,7 @@
   <ItemGroup>
     <Compile Include="Builder\CommandEmbedBuilder.cs" />
     <Compile Include="CustomPreconditions\RolePlayRoles.cs" />
-    <Compile Include="Modules\Events\CommandMessageEvent.cs" />
+    <Compile Include="Events\CommandMessageEvent.cs" />
     <Compile Include="Handler\CommandHandler.cs" />
     <Compile Include="Handler\ImageEvent.cs" />
     <Compile Include="Model\RolePlayModel.cs" />

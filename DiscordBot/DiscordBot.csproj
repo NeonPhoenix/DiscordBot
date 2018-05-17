@@ -230,6 +230,7 @@
     <Compile Include="Modules\BotCommands.cs" />
     <Compile Include="Modules\RolePlayCommands.cs" />
     <Compile Include="Modules\SupportCommands.cs" />
+    <Compile Include="Services\ConnectionService.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Init\ImageInitialization.cs" />
     <Compile Include="Modules\AdminCommands.cs" />

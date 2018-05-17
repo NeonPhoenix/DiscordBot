@@ -36,13 +36,10 @@ namespace DiscordBot
             provider.GetRequiredService<LoggingService>();
             provider.GetRequiredService<CommandHandler>();
 
-            //var updater = new UpdateHandler();
-            //updater.StartUpdateCheck();
-
             ImageInitialization.Init();
 
-            await provider.GetRequiredService<StartupService>().StartAsync();       
-            await Task.Delay(-1);                               
+            await provider.GetRequiredService<StartupService>().StartAsync();
+            await Task.Delay(-1);
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -53,7 +50,7 @@ namespace DiscordBot
             .AddSingleton<LoggingService>()         
             .AddSingleton<CommandHandler>()
             .AddSingleton<Random>()                
-            .AddSingleton(Configuration);          
+            .AddSingleton(Configuration);
         }
     }
 }

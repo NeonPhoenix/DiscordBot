@@ -97,6 +97,13 @@ namespace DiscordBot.Modules
             var em = _emb.RolePlayEmbed(Context, usr, "toys with");
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
+
+        [Command("lick")]
+        public async Task LickAsync(SocketUser usr = null)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "toys with");
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
         #endregion
     }
 }

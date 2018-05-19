@@ -13,7 +13,7 @@ namespace DiscordBot.Services
         {
             _discord = client;
 
-            System.Timers.Timer timer = new System.Timers.Timer(1000 * 60 * 1) { AutoReset = true };
+            System.Timers.Timer timer = new System.Timers.Timer(1000 * 60 * 5) { AutoReset = true };
             timer.Elapsed += CheckConnectionState;
             timer.Start();
         }

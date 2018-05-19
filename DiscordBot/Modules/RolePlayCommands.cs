@@ -20,6 +20,62 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 
+        [Command("cum")]
+        public async Task CumOnAsync(SocketUser usr, string bodyPart)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "cums on", bodyPart);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("pinch")]
+        public async Task PinchAsync(SocketUser usr, string bodyPart)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "pinches", bodyPart);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("bind")]
+        public async Task BindAsync(SocketUser usr, string bodyPart)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "binds", bodyPart);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("nibble")]
+        public async Task NibbleAsync(SocketUser usr, string bodyPart)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "nibbles on", bodyPart);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("lick")]
+        public async Task LickAsync(SocketUser usr, string bodyPart)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "licks", bodyPart);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("slap")]
+        public async Task SlapAsync(SocketUser usr, string bodyPart)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "slaps", bodyPart);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("spank")]
+        public async Task SpankAsync(SocketUser usr, string bodyPart)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "spanks", bodyPart);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
+        [Command("fuck")]
+        public async Task FuckAsync(SocketUser usr, string bodyPart)
+        {
+            var em = _emb.RolePlayEmbed(Context, usr, "fucks", bodyPart);
+            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
+        }
+
         #region User only commands
         [Command("french")]
         public async Task FrenchAsync(SocketUser usr = null)

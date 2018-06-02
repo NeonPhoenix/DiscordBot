@@ -10,7 +10,6 @@ namespace DiscordBot.Modules
         private CommandEmbedBuilder _emb = new CommandEmbedBuilder();
         private readonly Random ran = new Random();
 
-        #region ReactionEmbed
         [Command("kiss")]
         public async Task KissAsync(params string[] msg)
         {
@@ -165,50 +164,18 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 
-        [Command("tackle")]
-        public async Task TackleAsync(params string[] msg)
-        {
-            var em = _emb.ReactionEmbed(Context, "tackles", msg);
-            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
-        }
-
-        [Command("suplex")]
-        public async Task SuplexAsync(params string[] msg)
-        {
-            var em = _emb.ReactionEmbed(Context, "suplexes", msg);
-            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
-        }
-
-        [Command("love")]
-        public async Task LoveAsync(params string[] msg)
-        {
-            var em = _emb.ReactionEmbed(Context, "sends love to", msg);
-            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
-        }
-
-        [Command("heart")]
-        public async Task HeartAsync(params string[] msg)
-        {
-            var em = _emb.ReactionEmbed(Context, "hearts", msg);
-            await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
-        }
-
-        #endregion
-
-        #region ReactionEmbed2 Commands
         [Command("smug")]
         public async Task SmugAsync(params string[] msg)
         {
-            var em = _emb.ReactionEmbed2(Context, "is acting smug", msg);
+            var em = _emb.ReactionEmbed(Context, "smug", msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 
         [Command("lewd")]
         public async Task LewdAsync(params string[] msg)
         {
-            var em = _emb.ReactionEmbed2(Context, "thinks that's lewd", msg);
+            var em = _emb.ReactionEmbed(Context, "lewd", msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
-        #endregion
     }
 }

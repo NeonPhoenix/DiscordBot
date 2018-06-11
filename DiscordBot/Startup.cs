@@ -2,7 +2,6 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using DiscordBot.Handler;
-using DiscordBot.Init;
 using DiscordBot.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,8 +34,6 @@ namespace DiscordBot
             var provider = services.BuildServiceProvider();
             provider.GetRequiredService<LoggingService>();
             provider.GetRequiredService<CommandHandler>();
-
-            ImageInitialization.Init();
 
             await provider.GetRequiredService<StartupService>().StartAsync();
             await Task.Delay(-1);

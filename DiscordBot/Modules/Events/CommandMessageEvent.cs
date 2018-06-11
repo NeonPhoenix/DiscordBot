@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DiscordBot.Events
+namespace DiscordBot.Modules.Events
 {
     public class CommandMessageEvent
     {

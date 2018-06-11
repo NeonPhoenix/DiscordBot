@@ -2,7 +2,6 @@
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DiscordBot.Handler

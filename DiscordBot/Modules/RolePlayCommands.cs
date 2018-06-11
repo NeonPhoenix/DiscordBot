@@ -1,6 +1,6 @@
 ﻿using Discord.Commands;
 using Discord.WebSocket;
-using DiscordBot.Builder;
+using DiscordBot.Modules.Builder;
 using DiscordBot.CustomPreconditions;
 using System;
 using System.Threading.Tasks;

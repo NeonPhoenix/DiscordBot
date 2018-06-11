@@ -1,6 +1,5 @@
 ﻿using Discord;
 using Discord.Commands;
-using DiscordBot.Init;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 

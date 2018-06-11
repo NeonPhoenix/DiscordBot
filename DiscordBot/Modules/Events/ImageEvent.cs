@@ -2,14 +2,14 @@
 using System;
 using System.IO;
 
-namespace DiscordBot.Handler
+namespace DiscordBot.Modules.Events
 {
     class ImageEvent
     {
         private static Random ran = new Random();
 
-        string _reaction = @"Content\Reactions\_reactions.json";
-        string _roleplay = @"Content\RolePlay\_roleplay.json";
+        readonly string _reaction = @"Content\Images\_reactions.json";
+        readonly string _roleplay = @"Content\Images\_roleplay.json";
 
         public string ReactionImage(string action)
         {

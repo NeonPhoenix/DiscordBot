@@ -1,5 +1,5 @@
 ﻿using Discord.Commands;
-using DiscordBot.Builder;
+using DiscordBot.Modules.Builder;
 using System;
 using System.Threading.Tasks;
 
@@ -14,7 +14,7 @@ namespace DiscordBot.Modules
         [Command("kiss")]
         public async Task KissAsync(params string[] msg)
         {
-            var em = _emb.ReactionEmbed(Context, "kisses", msg);
+            var em = _emb.ReactionEmbed2(Context, "kisses", msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
 

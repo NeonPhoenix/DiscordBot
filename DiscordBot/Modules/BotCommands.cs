@@ -17,16 +17,6 @@ namespace DiscordBot.Modules
             _config = config;
         }
 
-        [Command("reloadimages")]
-        [Summary("Reload Image list for SFW and NSFW Commands.")]
-        [RequireUserPermission(GuildPermission.ManageGuild)]
-        public async Task ReloadImage()
-        {
-            ImageInitialization.Clear();
-            ImageInitialization.Init();
-            await Context.Channel.SendMessageAsync("Reload Complete!");
-        }
-
         [Command("prefix"), Priority(1)]
         [RequireUserPermission(GuildPermission.ManageGuild)]
         public async Task PrefixAsysnc()

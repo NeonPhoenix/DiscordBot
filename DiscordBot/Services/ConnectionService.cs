@@ -37,5 +37,10 @@ namespace DiscordBot.Services
                 LoggingService.LogAsync(LogSeverity.Info, $"Current Connection State: {state}");
             }
         }
+
+        private static void OnGuildJoin()
+        {
+            
+        }
     }
 }

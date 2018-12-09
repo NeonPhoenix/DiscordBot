@@ -1,15 +1,15 @@
 ﻿using Discord;
 using Discord.Commands;
-using DiscordBot.Modules.Events;
+using DiscordBot.Events;
 using System;
 
-namespace DiscordBot.Modules.Builder
+namespace DiscordBot.Builder
 {
     public class CommandEmbedBuilder
     {
         private EmbedBuilder _embed;
-        private ImageEvent _image = new ImageEvent();
-        private CommandMessageEvent _cmd = new CommandMessageEvent();
+        private ImageEvents _image = new ImageEvents();
+        private CommandEvents _cmd = new CommandEvents();
 
         public EmbedBuilder ReactionEmbed(SocketCommandContext ctx, string action, string[] msg)
         {
@@ -18,22 +18,14 @@ namespace DiscordBot.Modules.Builder
 
             if (string.IsNullOrWhiteSpace(mentioned))
             {
-                _embed = new EmbedBuilder().WithTitle($"{_cmd.GetAuthor(ctx)} {action} everyone! { _cmd.CleanMessage(ctx, msg)}");
+                _embed = new EmbedBuilder().WithTitle($"{_cmd.GetAuthor(ctx)} {action} everyone! {_cmd.CleanMessage(ctx, msg)}");
             }
             else
             {
                 _embed = new EmbedBuilder().WithTitle($"{_cmd.GetAuthor(ctx)} {action} {mentioned} {_cmd.CleanMessage(ctx, msg)}");
             }
 
-            //262789836983762944
-            if(ctx.User.Id == 262789836983762944)
-            {
-                if (Uri.IsWellFormedUriString("https://cdn.discordapp.com/attachments/454492932364435456/455878588672114699/scream.gif", UriKind.Absolute)) { _embed.WithImageUrl("https://cdn.discordapp.com/attachments/454492932364435456/455878588672114699/scream.gif"); }
-            }
-            else
-            {
-                if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
-            }
+            if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
             
             return _embed;
         }
@@ -44,14 +36,7 @@ namespace DiscordBot.Modules.Builder
 
             _embed = new EmbedBuilder().WithTitle($"{_cmd.GetAuthor(ctx)} {action}! {_cmd.CleanMessage(ctx, msg)}");
 
-            if (ctx.User.Id == 145333493742698496)
-            {
-                if (Uri.IsWellFormedUriString("https://cdn.discordapp.com/attachments/454492932364435456/455878588672114699/scream.gif", UriKind.Absolute)) { _embed.WithImageUrl("https://cdn.discordapp.com/attachments/454492932364435456/455878588672114699/scream.gif"); }
-            }
-            else
-            {
-                if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
-            }
+            if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
 
             return _embed; 
         }

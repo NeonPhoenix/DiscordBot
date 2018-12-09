@@ -1,10 +1,12 @@
 ﻿using Discord.Commands;
-using DiscordBot.Modules.Builder;
+using DiscordBot.Builder;
 using System;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace DiscordBot.Modules
 {
+    [ComVisible(false)]
     public class ReactionCommands : ModuleBase<SocketCommandContext>
     {
         private CommandEmbedBuilder _emb = new CommandEmbedBuilder();
@@ -192,6 +194,9 @@ namespace DiscordBot.Modules
             var em = _emb.ReactionEmbed(Context, "hearts", msg);
             await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         }
+
+        //drool
+        //cookie
 
         #endregion
 

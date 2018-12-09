@@ -5,10 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace DiscordBot.Modules
 {
+    [ComVisible(false)]
     public class InfoCommands : ModuleBase<SocketCommandContext>
     {
         private readonly CommandService _service;
@@ -27,8 +29,6 @@ namespace DiscordBot.Modules
             var sw = Stopwatch.StartNew();
             var msg = await Context.Channel.SendMessageAsync("PONG!").ConfigureAwait(false);
             sw.Stop();
-            await msg.DeleteAsync(null);
-
             await Context.Channel.SendMessageAsync($"{Format.Bold(Context.User.ToString())} 🏓 {(int)sw.Elapsed.TotalMilliseconds}ms").ConfigureAwait(false);
         }
 
@@ -38,7 +38,8 @@ namespace DiscordBot.Modules
         {
             string prefix = _config["Prefix"];
             var builder = new EmbedBuilder() { Color = new Color(114, 137, 218), Description = "These are the commands you can use!" };
-            foreach(var module in _service.Modules)
+
+            foreach (var module in _service.Modules)
             {
                 string description = null;
                 foreach (var cmd in module.Commands)
@@ -60,7 +61,8 @@ namespace DiscordBot.Modules
         public async Task HelpAsync(string command)
         {
             var result = _service.Search(Context, command);
-            if(!result.IsSuccess) { await ReplyAsync($"Sorry, I couldn't find a command like **{command}**!"); return; }
+
+            if (!result.IsSuccess) { await ReplyAsync($"Sorry, I couldn't find a command like **{command}**!"); return; }
 
             string prefix = _config["Prefix"];
             var builder = new EmbedBuilder() { Color = new Color(114, 137, 218), Description = $"Here are some commands like **{command}**!" };
@@ -86,6 +88,7 @@ namespace DiscordBot.Modules
         {
             var createdAt = new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(Context.Guild.Id >> 22);
             var features = string.Join("\n", Context.Guild.Features);
+
             if (string.IsNullOrWhiteSpace(features)) { features = "-"; }
 
             var embed = new EmbedBuilder()
@@ -117,6 +120,7 @@ namespace DiscordBot.Modules
             if (user == null) return;
 
             foreach (ulong i in user.RoleIds) { roles.Add(user.Guild.GetRole(i).Name); }
+
             roles.Remove("@everyone");
             string r = string.Join(" ", roles);
 

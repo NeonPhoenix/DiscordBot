@@ -1,7 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using DiscordBot.Handler;
+using DiscordBot.Handlers;
 using DiscordBot.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +16,7 @@ namespace DiscordBot
 
         public Startup(string[] args)
         {
-            var builder = new ConfigurationBuilder().SetBasePath(AppContext.BaseDirectory + @"Content\Config").AddJsonFile("_configuration.json");        
+            var builder = new ConfigurationBuilder().SetBasePath(AppContext.BaseDirectory + @"Content\Config").AddJsonFile("_token.json");        
             Configuration = builder.Build();                
         }
 
@@ -33,7 +33,7 @@ namespace DiscordBot
 
             var provider = services.BuildServiceProvider();
             provider.GetRequiredService<LoggingService>();
-            provider.GetRequiredService<CommandHandler>();
+            provider.GetRequiredService<DiscordEventHandler>();
 
             await provider.GetRequiredService<StartupService>().StartAsync();
             await Task.Delay(-1);
@@ -45,7 +45,7 @@ namespace DiscordBot
             .AddSingleton(new CommandService(new CommandServiceConfig { LogLevel = LogSeverity.Verbose, DefaultRunMode = RunMode.Async, CaseSensitiveCommands = false }))
             .AddSingleton<StartupService>()         
             .AddSingleton<LoggingService>()         
-            .AddSingleton<CommandHandler>()
+            .AddSingleton<DiscordEventHandler>()
             .AddSingleton<Random>()                
             .AddSingleton(Configuration);
         }

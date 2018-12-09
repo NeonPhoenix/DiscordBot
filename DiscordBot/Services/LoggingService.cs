@@ -15,8 +15,6 @@ namespace DiscordBot.Services
         private static string _logDirectory;
         private static string _logFile => Path.Combine(_logDirectory, $"{DateTime.UtcNow.ToString("yyyy-MM-dd")}.txt");
 
-        public static string _consolePrefix = $"{DateTime.UtcNow.ToString("hh:mm:ss")}";
-
         public LoggingService(DiscordSocketClient discord, CommandService commands)
         {
             _logDirectory = Path.Combine(AppContext.BaseDirectory, "logs");
@@ -38,7 +36,7 @@ namespace DiscordBot.Services
         {
             CheckFiles();
 
-            string logText = $"{_consolePrefix} [{msg.Severity}] {msg.Source}: {msg.Exception?.ToString() ?? msg.Message}";
+            string logText = $"{DateTime.UtcNow.ToString("hh:mm:ss")} [{msg.Severity}] {msg.Source}: {msg.Exception?.ToString() ?? msg.Message}";
             File.AppendAllText(_logFile, logText + "\n");
 
             return Console.Out.WriteLineAsync(logText);
@@ -48,7 +46,17 @@ namespace DiscordBot.Services
         {
             CheckFiles();
 
-            string logText = $"{_consolePrefix} [{sev}] {message}";
+            string logText = $"{DateTime.UtcNow.ToString("hh:mm:ss")} [{sev}] {message}";
+            File.AppendAllText(_logFile, logText + "\n");
+
+            return Console.Out.WriteLineAsync(logText);
+        }
+
+        public static Task LogAsync(LogSeverity sev, string source, string message)
+        {
+            CheckFiles();
+
+            string logText = $"{DateTime.UtcNow.ToString("hh:mm:ss")} [{sev}] {source}: {message}";
             File.AppendAllText(_logFile, logText + "\n");
 
             return Console.Out.WriteLineAsync(logText);

@@ -1,21 +1,23 @@
 ﻿using Discord.Commands;
 using Discord.WebSocket;
+using DiscordBot.Handlers;
 using System;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DiscordBot.CustomPreconditions
+namespace DiscordBot.Preconditions
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class RolePlayRoles : PreconditionAttribute
     {
         public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider service)
         {
-            string[] roleNames = { "vip", "fox courtiers", "fox prince", "fox princess", "fox king", "fox queen" };
+            ArrayList roleNames = DatabaseHandler.CheckRolePrecondition(context.Guild.Id.ToString());
 
             if (!(context.User is SocketGuildUser user)) { return Task.FromResult(PreconditionResult.FromError("The command was not used in a guild.")); }
 
-            var matchingRoles = context.Guild.Roles.Where(role => roleNames.Any(name => name == role.Name.ToLower()));
+            var matchingRoles = context.Guild.Roles.Where(role => roleNames.Contains(role.Name.ToLower()));
             if (matchingRoles == null) { return Task.FromResult(PreconditionResult.FromError("There are no matching roles on the server.")); }
 
             if (user.Roles.Any(role => matchingRoles.Contains(role)))

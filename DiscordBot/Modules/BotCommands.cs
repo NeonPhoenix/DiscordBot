@@ -1,10 +1,13 @@
 ﻿using Discord;
 using Discord.Commands;
+using DiscordBot.Handlers;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace DiscordBot.Modules
 {
+    [ComVisible(false)]
     public class BotCommands : ModuleBase<SocketCommandContext>
     {
         private readonly CommandService _service;
@@ -16,20 +19,19 @@ namespace DiscordBot.Modules
             _config = config;
         }
 
-        [Command("prefix"), Priority(1)]
-        [RequireUserPermission(GuildPermission.ManageGuild)]
-        public async Task PrefixAsysnc()
+        [Command("prefix")]
+        public async Task PrefixAsync()
         {
-            string prefix = _config["Prefix"];
-            await ReplyAsync($"Current set prefix is {prefix}!");
+            string prefix = DatabaseHandler.CheckGuildPrefix(Context.Guild.Id.ToString());
+            await ReplyAsync($"Current set prefix is {prefix}");
         }
 
-        [Command("prefix"), Priority(0)]
+        [Command("prefix")]
         [RequireUserPermission(GuildPermission.ManageGuild)]
-        public async Task PrefixAsync(string prefix)
+        public async Task PrefixAsync(string newPrefix)
         {
-            _config.GetSection("Prefix").Value = prefix;
-            await ReplyAsync($"Prefix has been changed to {prefix}!");
+            DatabaseHandler.ChangeGuildPrefix(Context.Guild.Id.ToString(), Context.Guild.Name.ToString(), newPrefix);
+            await ReplyAsync($"Prefix has been changed to {newPrefix}");
         }
     }
 }

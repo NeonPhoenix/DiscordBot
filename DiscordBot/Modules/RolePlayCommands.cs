@@ -1,13 +1,15 @@
 ﻿using Discord.Commands;
 using Discord.WebSocket;
-using DiscordBot.Modules.Builder;
-using DiscordBot.CustomPreconditions;
+using DiscordBot.Builder;
+using DiscordBot.Preconditions;
 using System;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace DiscordBot.Modules
 {
     [RolePlayRoles]
+    [ComVisible(false)]
     public class RolePlayCommands : ModuleBase<SocketCommandContext>
     {
         private CommandEmbedBuilder _emb = new CommandEmbedBuilder();

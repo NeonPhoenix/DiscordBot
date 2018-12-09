@@ -2,9 +2,9 @@
 using System;
 using System.IO;
 
-namespace DiscordBot.Modules.Events
+namespace DiscordBot.Events
 {
-    class ImageEvent
+    class ImageEvents
     {
         private static Random ran = new Random();
 

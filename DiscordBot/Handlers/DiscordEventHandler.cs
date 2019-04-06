@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using DiscordBot.Managers;
 using DiscordBot.Services;
 using System;
 using System.Threading.Tasks;
@@ -28,13 +29,13 @@ namespace DiscordBot.Handlers
 
         private async Task JoinedGuild(SocketGuild guild)
         {
-            var result = await Task.Run(() => DatabaseHandler.CheckGuild(guild.Id.ToString(), guild.Name));
+            var result = await Task.Run(() => DatabaseManager.CheckGuild(guild.Id.ToString(), guild.Name));
             if(result.IsSuccess) { await LoggingService.LogAsync(LogSeverity.Info, $"Bot has joined {guild.Name} and has been assigned default prefix"); } else { await LoggingService.LogAsync(LogSeverity.Error, result.ToString()); }
         }
 
         private async Task LeftGuild(SocketGuild guild)
         {
-            var result = await Task.Run(() => DatabaseHandler.RemoveGuild(guild.Id.ToString(), guild.Name));
+            var result = await Task.Run(() => DatabaseManager.RemoveGuild(guild.Id.ToString(), guild.Name));
             if (result.IsSuccess) { await LoggingService.LogAsync(LogSeverity.Info, $"Bot has been removed from {guild.Name}."); } else { await LoggingService.LogAsync(LogSeverity.Error, result.ToString()); }
         }
 
@@ -48,7 +49,7 @@ namespace DiscordBot.Handlers
             int argPos = 0;
 
             string prefix = "";
-            string storedPrefix = DatabaseHandler.CheckGuildPrefix(context.Guild.Id.ToString());
+            string storedPrefix = DatabaseManager.CheckGuildPrefix(context.Guild.Id.ToString());
 
             if (msg.Content.Contains(storedPrefix)) { prefix = storedPrefix; } else { prefix = storedPrefix.ToUpper(); }
 

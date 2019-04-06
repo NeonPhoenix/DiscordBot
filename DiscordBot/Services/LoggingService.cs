@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using DiscordBot.Utilities;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -12,12 +13,11 @@ namespace DiscordBot.Services
         private readonly DiscordSocketClient _discord;
         private readonly CommandService _commands;
 
-        private static string _logDirectory;
-        private static string _logFile => Path.Combine(_logDirectory, $"{DateTime.UtcNow.ToString("yyyy-MM-dd")}.txt");
+        private static string _logFile => Path.Combine(Constants._lgPath, $"{DateTime.UtcNow.ToString("yyyy-MM-dd")}.txt");
 
         public LoggingService(DiscordSocketClient discord, CommandService commands)
         {
-            _logDirectory = Path.Combine(AppContext.BaseDirectory, "logs");
+            //_logDirectory = Path.Combine(AppContext.BaseDirectory, "logs");
 
             _discord = discord;
             _commands = commands;
@@ -28,7 +28,7 @@ namespace DiscordBot.Services
 
         private static void CheckFiles()
         {
-            if (!Directory.Exists(_logDirectory)) { Directory.CreateDirectory(_logDirectory); }
+            if (!Directory.Exists(Constants._lgPath)) { Directory.CreateDirectory(Constants._lgPath); }
             if (!File.Exists(_logFile)) { File.Create(_logFile).Dispose(); }
         }
 

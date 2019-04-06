@@ -1,8 +1,7 @@
-﻿using Discord.Commands;
-using Discord.WebSocket;
-using DiscordBot.Handlers;
+﻿using Discord;
+using Discord.Commands;
+using DiscordBot.Managers;
 using System;
-using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,24 +10,25 @@ namespace DiscordBot.Preconditions
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class RolePlayRoles : PreconditionAttribute
     {
-        public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider service)
+        private static PreconditionResult _result;
+
+        public override Task<PreconditionResult> CheckPermissionsAsync(ICommandContext context, CommandInfo command, IServiceProvider service)
         {
-            ArrayList roleNames = DatabaseHandler.CheckRolePrecondition(context.Guild.Id.ToString());
+            var channelID = DatabaseManager.CheckPreconditionChannel(context, "RolePlayRoles");
 
-            if (!(context.User is SocketGuildUser user)) { return Task.FromResult(PreconditionResult.FromError("The command was not used in a guild.")); }
+            if (!(context.User is IGuildUser user)) { return Task.FromResult(PreconditionResult.FromError("The command was not used in a guild.")); }
 
-            var matchingRoles = context.Guild.Roles.Where(role => roleNames.Contains(role.Name.ToLower()));
-            if (matchingRoles == null) { return Task.FromResult(PreconditionResult.FromError("There are no matching roles on the server.")); }
-
-            if (user.Roles.Any(role => matchingRoles.Contains(role)))
+            if (!user.RoleIds.Contains(DatabaseManager.CheckPreconditionRole(context, "RolePlayRoles")))
             {
-                if(context.Channel.Id == 412015604698972160)
+                if (!(channelID == context.Channel.Id))
                 {
-                    return Task.FromResult(PreconditionResult.FromSuccess());
+                    return Task.FromResult(PreconditionResult.FromError("You are not in the proper channel to use this command!"));
                 }
+
+                return Task.FromResult(PreconditionResult.FromError("You do not have the proper role to use this command!"));
             }
 
-            return Task.FromResult(PreconditionResult.FromError("The user did not have any matching roles for Role Play Commands."));
+            return Task.FromResult(PreconditionResult.FromSuccess());
         }
     }
 }

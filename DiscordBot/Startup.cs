@@ -2,6 +2,7 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using DiscordBot.Handlers;
+using DiscordBot.Managers;
 using DiscordBot.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +17,9 @@ namespace DiscordBot
 
         public Startup(string[] args)
         {
-            var builder = new ConfigurationBuilder().SetBasePath(AppContext.BaseDirectory + @"Content\Config").AddJsonFile("_token.json");        
+            StartupManager.CheckFiles();
+
+            var builder = new ConfigurationBuilder().SetBasePath($@"{AppContext.BaseDirectory}\Content\").AddJsonFile("token.json");        
             Configuration = builder.Build();                
         }
 

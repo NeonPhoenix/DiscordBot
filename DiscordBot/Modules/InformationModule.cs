@@ -1,6 +1,6 @@
 ﻿using Discord;
 using Discord.Commands;
-using Microsoft.Extensions.Configuration;
+using DiscordBot.Managers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,15 +11,13 @@ using System.Threading.Tasks;
 namespace DiscordBot.Modules
 {
     [ComVisible(false)]
-    public class InfoCommands : ModuleBase<SocketCommandContext>
+    public class InformationModule : ModuleBase<SocketCommandContext>
     {
         private readonly CommandService _service;
-        private readonly IConfigurationRoot _config;
 
-        public InfoCommands(CommandService service, IConfigurationRoot config)
+        public InformationModule(CommandService service)
         {
             _service = service;
-            _config = config;
         }
 
         [Command("ping")]
@@ -32,29 +30,19 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync($"{Format.Bold(Context.User.ToString())} 🏓 {(int)sw.Elapsed.TotalMilliseconds}ms").ConfigureAwait(false);
         }
 
+        [Command("prefix")]
+        public async Task PrefixAsync()
+        {
+            string prefix = DatabaseManager.CheckGuildPrefix(Context.Guild.Id.ToString());
+            await ReplyAsync($"Current set prefix is {prefix}");
+        }
+
         [Command("help")]
         [Summary("Gives information on commands and their usages.")]
         public async Task HelpAsync()
         {
-            string prefix = _config["Prefix"];
-            var builder = new EmbedBuilder() { Color = new Color(114, 137, 218), Description = "These are the commands you can use!" };
-
-            foreach (var module in _service.Modules)
-            {
-                string description = null;
-                foreach (var cmd in module.Commands)
-                {
-                    var result = await cmd.CheckPreconditionsAsync(Context);
-                    if (result.IsSuccess) description += $"{prefix}{cmd.Aliases.First()}\n";
-                }
-
-                if(!string.IsNullOrWhiteSpace(description))
-                {
-                    builder.AddField(x => { x.Name = module.Name; x.Value = description; x.IsInline = false; });
-                }
-            }
-
-            await ReplyAsync("", false, builder.Build());
+            //TODO IMPLEMENT HELP THAT DOES NOT CRASH
+            await Context.Channel.SendMessageAsync("Seems like this command has not been completed. Better luck next time.");
         }
 
         [Command("help")]
@@ -64,7 +52,7 @@ namespace DiscordBot.Modules
 
             if (!result.IsSuccess) { await ReplyAsync($"Sorry, I couldn't find a command like **{command}**!"); return; }
 
-            string prefix = _config["Prefix"];
+            string prefix = DatabaseManager.CheckGuildPrefix(Context.Guild.Id.ToString());
             var builder = new EmbedBuilder() { Color = new Color(114, 137, 218), Description = $"Here are some commands like **{command}**!" };
 
             foreach(var match in result.Commands)
@@ -106,7 +94,7 @@ namespace DiscordBot.Modules
 
             if (Uri.IsWellFormedUriString(Context.Guild.IconUrl, UriKind.Absolute)) { embed.WithImageUrl(Context.Guild.IconUrl); }
 
-            await Context.Channel.SendMessageAsync("test", false, embed, null).ConfigureAwait(false);
+            await Context.Channel.SendMessageAsync("", false, embed.Build(), null).ConfigureAwait(false);
         }
 
         [Command("whois"), Alias("user", "userinfo")]
@@ -139,7 +127,7 @@ namespace DiscordBot.Modules
 
             if (user.AvatarId != null) { embed.WithThumbnailUrl(user.GetAvatarUrl()); }
 
-            await Context.Channel.SendMessageAsync("", false, embed, null).ConfigureAwait(false);
+            await Context.Channel.SendMessageAsync("", false, embed.Build(), null).ConfigureAwait(false);
         }
     }
 }

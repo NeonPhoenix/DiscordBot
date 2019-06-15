@@ -260,6 +260,8 @@
     <Compile Include="Builder\CommandEmbedBuilder.cs" />
     <Compile Include="Managers\StartupManager.cs" />
     <Compile Include="Objects\Manifest.cs" />
+    <Compile Include="Objects\RolePlayImage.cs" />
+    <Compile Include="Preconditions\ModuleCheck.cs" />
     <Compile Include="Preconditions\RolePlayRoles.cs" />
     <Compile Include="Events\CommandEvents.cs" />
     <Compile Include="Events\ImageEvents.cs" />
@@ -283,7 +285,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Images\_roleplay.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\roseDB.sqlite" />
     <None Include="packages.config" />

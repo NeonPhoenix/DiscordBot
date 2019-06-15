@@ -16,12 +16,19 @@ namespace DiscordBot.Modules
         private readonly CommandEmbedBuilder _emb = new CommandEmbedBuilder();
         readonly Random ran = new Random();
 
+        [Command("lick")]
+        public async Task LickAsync(IUser usr = null)
+        {
+            await Context.Channel.SendMessageAsync("", false, _emb.RolePlayEmbed(Context, usr, "licks").Build(), null).ConfigureAwait(false);
+        }
+
         [Command("rub")]
         public async Task RubAsync(SocketUser usr, string bodyPart)
         {
-            EmbedBuilder em = _emb.RolePlayEmbed(Context, usr, "rub", bodyPart);
-            await Context.Channel.SendMessageAsync("", false, em.Build(), null).ConfigureAwait(false);
+            await Context.Channel.SendMessageAsync("", false, _emb.RolePlayEmbed(Context, usr, "rub", bodyPart).Build(), null).ConfigureAwait(false);
         }
+
+
 
         //[Command("cum")]
         //public async Task CumOnAsync(SocketUser usr, string bodyPart)
@@ -156,13 +163,7 @@ namespace DiscordBot.Modules
         //    var em = _emb.RolePlayEmbed(Context, usr, "toys with");
         //    await Context.Channel.SendMessageAsync("", false, em, null).ConfigureAwait(false);
         //}
-
-        [Command("lick")]
-        public async Task LickAsync([Remainder]SocketUser usr)
-        {
-            EmbedBuilder em = _emb.RolePlayEmbed(Context, usr, "licks");
-            await Context.Channel.SendMessageAsync("", false, em.Build(), null).ConfigureAwait(false);
-        }
+        
         #endregion
     }
 }

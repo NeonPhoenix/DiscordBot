@@ -125,12 +125,12 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync("", false, em.Build(), null).ConfigureAwait(false);
         }
 
-        [Command("lick")]
-        public async Task LickAsync(params string[] msg)
-        {
-            var em = _emb.ReactionEmbed(Context, "licks", msg);
-            await Context.Channel.SendMessageAsync("", false, em.Build(), null).ConfigureAwait(false);
-        }
+        //[Command("lick")]
+        //public async Task LickAsync(params string[] msg)
+        //{
+        //    var em = _emb.ReactionEmbed(Context, "licks", msg);
+        //    await Context.Channel.SendMessageAsync("", false, em.Build(), null).ConfigureAwait(false);
+        //}
 
         [Command("parrot"), Alias("groove")]
         public async Task ParrotAsync(params string[] msg)

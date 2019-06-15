@@ -43,9 +43,9 @@ namespace DiscordBot.Builder
 
         public EmbedBuilder RolePlayEmbed(SocketCommandContext context, IUser user, string action, string bodyPart)
         {
-            string image = _image.RolePlayImage(action, bodyPart);
+            string image = _image.RolePlayImage(action);
 
-            _embed = new EmbedBuilder().WithTitle($"{context.Message.Author.Username} {action} {user.Username}'s {bodyPart}");
+            _embed = new EmbedBuilder().WithTitle($"{context.Message.Author.Username} {action} {user.Username}");
             if (Uri.IsWellFormedUriString(image, UriKind.Absolute)) { _embed.WithImageUrl(image); }
 
             return _embed;

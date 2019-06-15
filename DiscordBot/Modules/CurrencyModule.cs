@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DiscordBot.Modules
 {
-    [ModuleStatus]
+    [ModuleCheck]
     [ComVisible(false)]
     public class CurrencyModule : ModuleBase<SocketCommandContext>
     {

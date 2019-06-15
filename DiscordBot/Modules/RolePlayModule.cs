@@ -1,9 +1,7 @@
-﻿using Discord;
-using Discord.Commands;
+﻿using Discord.Commands;
 using Discord.WebSocket;
 using DiscordBot.Builder;
 using DiscordBot.Preconditions;
-using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -16,9 +14,9 @@ namespace DiscordBot.Modules
         private readonly CommandEmbedBuilder _emb = new CommandEmbedBuilder();
 
         [Command("rub")]
-        public async Task RubAsync(SocketUser usr, string bodyPart)
+        public async Task RubAsync(SocketUser usr)
         {
-            await Context.Channel.SendMessageAsync("", false, _emb.RolePlayEmbed(Context, usr, "rub", bodyPart).Build(), null).ConfigureAwait(false);
+            await Context.Channel.SendMessageAsync("", false, _emb.RolePlayEmbed(Context, usr, "rubs").Build(), null).ConfigureAwait(false);
         }
 
         //[Command("cum")]

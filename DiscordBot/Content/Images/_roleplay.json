@@ -1,8 +1,6 @@
 {
-  "rub": {
-    "legs": {
-      "": ""
-    }
+  "rubs": {
+    "0": "https://i.imgur.com/pTUXcmI.gif"
   },
 
   "french kisses": {
@@ -91,23 +89,5 @@
     "2": "https://i.imgur.com/uP8rFEF.gif",
     "3": "https://i.imgur.com/Vsj3Z66.gif",
     "4": "https://i.imgur.com/YumjmLO.gif"
-  },
-
-  "licks": {
-    "0": "https://i.imgur.com/1daLLLK.gif",
-    "1": "https://i.imgur.com/YbGVpGS.gif",
-    "2": "https://i.imgur.com/ncgPCcv.gif",
-    "3": "https://i.imgur.com/nSaHGc0.gif",
-    "4": "https://i.imgur.com/aV8mT6Q.gif",
-    "5": "https://i.imgur.com/PlgtfBU.gif",
-    "6": "https://i.imgur.com/iptwRDk.gif",
-    "7": "https://i.imgur.com/95Ttb1j.gif",
-    "8": "https://i.imgur.com/gfJ0Ia8.gif",
-    "9": "https://i.imgur.com/fMC75Xs.gif",
-    "10": "https://i.imgur.com/zT6nIBD.gif",
-    "11": "https://i.imgur.com/r4BFYx5.gif",
-    "12": "https://i.imgur.com/21gOjlB.gif",
-    "13": "https://i.imgur.com/Cd1Y60O.gif",
-    "14": "https://i.imgur.com/otkZH5y.gif"
   }
 }

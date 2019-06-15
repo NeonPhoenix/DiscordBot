@@ -397,7 +397,7 @@ namespace DiscordBot.Managers
                 _connect.Open();
                 SQLiteDataReader reader = command.ExecuteReader();
 
-                while (reader.Read()) { moduleStatus = int.Parse(reader["GuildPrefix"].ToString()); }
+                while (reader.Read()) { moduleStatus = int.Parse(reader[$"{moduleName}"].ToString()); }
 
                 if(moduleStatus == 1)
                 {
@@ -428,16 +428,21 @@ namespace DiscordBot.Managers
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
 
-                if(moduleStatus.Equals(true))
+                if (CheckModuleStatus(moduleName, guildID) == false)
                 {
-                    command.CommandText = $"UPDATE Guilds SET [{moduleName}] = '1' WHERE [GuildID] = {guildID}";
+                    command.CommandText = $"UPDATE Guilds SET [{moduleName}] = '1' WHERE [GuildID] = '{guildID}'";
                     _result = ExecuteResult.FromSuccess();
                 }
-                else if(moduleStatus.Equals(false))
+                else if (CheckModuleStatus(moduleName, guildID) == true)
                 {
                     command.CommandText = $"UPDATE Guilds SET [{moduleName}] = '0' WHERE [GuildID] = {guildID}";
                     _result = ExecuteResult.FromSuccess();
                 }
+
+                _connect.Open();
+                command.ExecuteNonQuery();
+
+                LoggingService.LogAsync(LogSeverity.Info, _className, $"{moduleName} has been changed for {guildID}.");
             }
             catch (Exception ex)
             {

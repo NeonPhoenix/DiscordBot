@@ -36,8 +36,8 @@ namespace DiscordBot.Modules
                 var result = await Task.Run(() => DatabaseManager.ChangeModuleStatus(modName, Context.Guild.Id.ToString(), modStatus));
                 if (result.IsSuccess)
                 {
-                    if (modStatus.Equals("false")) { await ReplyAsync($"{modName} has successfully been turned off."); }
-                    else if (modStatus.Equals("true")) { await ReplyAsync($"{modName} has successfully been turned on."); }
+                    if (modStatus.Equals(false)) { await ReplyAsync($"{modName} has successfully been turned off."); }
+                    else if (modStatus.Equals(true)) { await ReplyAsync($"{modName} has successfully been turned on."); }
                 }
             }
         }

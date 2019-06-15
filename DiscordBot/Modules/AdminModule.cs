@@ -1,7 +1,6 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using DiscordBot.Events;
 using DiscordBot.Managers;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -25,6 +24,22 @@ namespace DiscordBot.Modules
         {
             DatabaseManager.ChangeGuildPrefix(Context.Guild.Id.ToString(), Context.Guild.Name.ToString(), newPrefix);
             await ReplyAsync($"Prefix has been changed to '{newPrefix}'");
+        }
+
+        [Group("module")]
+        [RequireUserPermission(GuildPermission.ManageGuild)]
+        public class ModuleStatus : ModuleBase<SocketCommandContext>
+        {
+            [Command("status")]
+            public async Task ToggleAsync(string modName, bool modStatus)
+            {
+                var result = await Task.Run(() => DatabaseManager.ChangeModuleStatus(modName, Context.Guild.Id.ToString(), modStatus));
+                if (result.IsSuccess)
+                {
+                    if (modStatus.Equals("false")) { await ReplyAsync($"{modName} has successfully been turned off."); }
+                    else if (modStatus.Equals("true")) { await ReplyAsync($"{modName} has successfully been turned on."); }
+                }
+            }
         }
 
         [Group("precon")]
@@ -51,13 +66,6 @@ namespace DiscordBot.Modules
                 var result = await Task.Run(() => DatabaseManager.AssignPreconditionToChannel(Context, precon, role.Id, channel.Id));
                 if(result.IsSuccess) { await ReplyAsync($"{precon} has been successfully assigned to {Context.Message.MentionedChannels}."); } else { await ReplyAsync(result.ToString()); }
             }
-        }
-
-        [Command("disconnect")]
-        [RequireUserPermission(GuildPermission.ManageGuild)]
-        public async Task Disconnect()
-        {
-            await Context.Client.StopAsync();
         }
     }
 }

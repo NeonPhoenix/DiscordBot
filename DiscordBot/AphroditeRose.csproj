@@ -260,7 +260,6 @@
     <Compile Include="Builder\CommandEmbedBuilder.cs" />
     <Compile Include="Managers\StartupManager.cs" />
     <Compile Include="Objects\Manifest.cs" />
-    <Compile Include="Preconditions\ModuleStatus.cs" />
     <Compile Include="Preconditions\RolePlayRoles.cs" />
     <Compile Include="Events\CommandEvents.cs" />
     <Compile Include="Events\ImageEvents.cs" />

@@ -30,13 +30,29 @@ namespace DiscordBot.Handlers
         private async Task JoinedGuild(SocketGuild guild)
         {
             var result = await Task.Run(() => DatabaseManager.CheckGuild(guild.Id.ToString(), guild.Name));
-            if(result.IsSuccess) { await LoggingService.LogAsync(LogSeverity.Info, $"Bot has joined {guild.Name} and has been assigned default prefix"); } else { await LoggingService.LogAsync(LogSeverity.Error, result.ToString()); }
+
+            if (result.IsSuccess)
+            {
+                await LoggingService.LogAsync(LogSeverity.Info, $"Bot has joined {guild.Name} and has been assigned default prefix");
+            }
+            else
+            {
+                await LoggingService.LogAsync(LogSeverity.Error, result.ToString());
+            }
         }
 
         private async Task LeftGuild(SocketGuild guild)
         {
             var result = await Task.Run(() => DatabaseManager.RemoveGuild(guild.Id.ToString(), guild.Name));
-            if (result.IsSuccess) { await LoggingService.LogAsync(LogSeverity.Info, $"Bot has been removed from {guild.Name}."); } else { await LoggingService.LogAsync(LogSeverity.Error, result.ToString()); }
+
+            if (result.IsSuccess)
+            {
+                await LoggingService.LogAsync(LogSeverity.Info, $"Bot has been removed from {guild.Name}.");
+            }
+            else
+            {
+                await LoggingService.LogAsync(LogSeverity.Error, result.ToString());
+            }
         }
 
         private async Task OnMessageReceivedAsync(SocketMessage s)
@@ -56,7 +72,11 @@ namespace DiscordBot.Handlers
             if (msg.HasStringPrefix(prefix, ref argPos) || msg.HasMentionPrefix(_discord.CurrentUser, ref argPos))
             {
                 var result = await _command.ExecuteAsync(context, argPos, _provider);
-                if (!result.IsSuccess) { await context.Channel.SendMessageAsync(result.ToString()); await LoggingService.LogAsync(LogSeverity.Info, result.ErrorReason.ToString()); }
+                if (!result.IsSuccess)
+                {
+                    await context.Channel.SendMessageAsync(result.ToString());
+                    await LoggingService.LogAsync(LogSeverity.Info, result.ErrorReason.ToString());
+                }
             }
         }
     }

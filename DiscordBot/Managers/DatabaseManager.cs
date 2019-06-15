@@ -17,7 +17,7 @@ namespace DiscordBot.Managers
 
         //TODO Sanitize SQL inputs
 
-        // Create Database Tables
+        // Create Database
         public static void CreateGuildTable()
         {
             SQLiteConnection conn = new SQLiteConnection(Constants._connectionString);
@@ -93,7 +93,7 @@ namespace DiscordBot.Managers
             }
         }
 
-        // Guild Checks
+        // Guild
         private static void AddGuild(string guildID, string guildName)
         {
             string guildPrefix = ">";
@@ -242,7 +242,7 @@ namespace DiscordBot.Managers
         //Check Users
 
 
-        // Precondition Checks
+        // Precondition
         public static ExecuteResult AddPreconditionRole(SocketCommandContext context, string preconName, ulong roleID)
         {
             SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
@@ -381,7 +381,7 @@ namespace DiscordBot.Managers
             return guildChannel;
         }
 
-        // ModuleStatus Checks
+        // Modules
         public static bool CheckModuleStatus(string moduleName, string guildID)
         {
             SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
@@ -418,6 +418,38 @@ namespace DiscordBot.Managers
             }
 
             return isActive;
+        }
+
+        public static ExecuteResult ChangeModuleStatus(string moduleName, string guildID, bool moduleStatus)
+        {
+            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+
+            try
+            {
+                SQLiteCommand command = new SQLiteCommand { Connection = _connect };
+
+                if(moduleStatus.Equals(true))
+                {
+                    command.CommandText = $"UPDATE Guilds SET [{moduleName}] = '1' WHERE [GuildID] = {guildID}";
+                    _result = ExecuteResult.FromSuccess();
+                }
+                else if(moduleStatus.Equals(false))
+                {
+                    command.CommandText = $"UPDATE Guilds SET [{moduleName}] = '0' WHERE [GuildID] = {guildID}";
+                    _result = ExecuteResult.FromSuccess();
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingService.LogAsync(LogSeverity.Error, _className, ex.Message);
+                _result = ExecuteResult.FromError(CommandError.Unsuccessful, ex.Message);
+            }
+            finally
+            {
+                _connect.Close();
+            }
+
+            return _result;
         }
     }
 }

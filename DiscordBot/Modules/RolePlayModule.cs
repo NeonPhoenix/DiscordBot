@@ -14,21 +14,12 @@ namespace DiscordBot.Modules
     public class RolePlayModule : ModuleBase<SocketCommandContext>
     {
         private readonly CommandEmbedBuilder _emb = new CommandEmbedBuilder();
-        readonly Random ran = new Random();
-
-        [Command("lick")]
-        public async Task LickAsync(IUser usr = null)
-        {
-            await Context.Channel.SendMessageAsync("", false, _emb.RolePlayEmbed(Context, usr, "licks").Build(), null).ConfigureAwait(false);
-        }
 
         [Command("rub")]
         public async Task RubAsync(SocketUser usr, string bodyPart)
         {
             await Context.Channel.SendMessageAsync("", false, _emb.RolePlayEmbed(Context, usr, "rub", bodyPart).Build(), null).ConfigureAwait(false);
         }
-
-
 
         //[Command("cum")]
         //public async Task CumOnAsync(SocketUser usr, string bodyPart)

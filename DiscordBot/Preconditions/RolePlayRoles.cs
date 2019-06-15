@@ -17,6 +17,11 @@ namespace DiscordBot.Preconditions
 
             if (!(context.User is IGuildUser user)) { return Task.FromResult(PreconditionResult.FromError("The command was not used in a guild!")); }
 
+            if(DatabaseManager.CheckModuleStatus(command.Module.Name, context.Guild.Id.ToString()).Equals("false"))
+            {
+                return Task.FromResult(PreconditionResult.FromError($"Sorry! This command is apart of {command.Module.Name} which is currently disabled!"));
+            }
+
             if(!user.RoleIds.Contains(roleID))
             {
                 if (!(0 == context.Channel.Id || channelID == context.Channel.Id))

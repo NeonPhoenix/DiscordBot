@@ -259,14 +259,11 @@
     <Compile Include="Handlers\DiscordEventHandler.cs" />
     <Compile Include="Builder\CommandEmbedBuilder.cs" />
     <Compile Include="Managers\StartupManager.cs" />
-    <Compile Include="Objects\Manifest.cs" />
-    <Compile Include="Objects\RolePlayImage.cs" />
     <Compile Include="Preconditions\ModuleCheck.cs" />
     <Compile Include="Preconditions\RolePlayRoles.cs" />
     <Compile Include="Events\CommandEvents.cs" />
     <Compile Include="Events\ImageEvents.cs" />
     <Compile Include="Modules\CurrencyModule.cs" />
-    <Compile Include="Modules\RolePlayModule.cs" />
     <Compile Include="Managers\ConnectionManager.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Modules\AdminModule.cs" />
@@ -284,14 +281,12 @@
     <None Include="Content\Images\_reactions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Images\_roleplay.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Content\roseDB.sqlite" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\" />
+    <Folder Include="Objects\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

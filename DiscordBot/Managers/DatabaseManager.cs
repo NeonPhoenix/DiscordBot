@@ -24,7 +24,7 @@ namespace DiscordBot.Managers
 
             try
             {
-                string createGuildTable = "CREATE TABLE Guilds (GuildID BIGINT(40), GuildPrefix VARCHAR(3), CurrencyModule INTEGER(1), ReactionModule INTEGER(1), RolePlayModule INTEGER(1))";
+                string createGuildTable = "CREATE TABLE Guilds (GuildID BIGINT(40), GuildPrefix VARCHAR(3), CurrencyModule INTEGER(1), ReactionModule INTEGER(1))";
 
                 SQLiteCommand command = new SQLiteCommand(createGuildTable, conn);
 

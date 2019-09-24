@@ -1,6 +1,5 @@
 ﻿using Discord.Commands;
 using DiscordBot.Builder;
-using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -9,6 +8,8 @@ namespace DiscordBot.Modules
     [ComVisible(false)]
     public class ReactionModule : ModuleBase<SocketCommandContext>
     {
+        //TODO Add meow command and images
+
         private CommandEmbedBuilder _emb = new CommandEmbedBuilder();
 
         #region ReactionEmbed
@@ -106,12 +107,6 @@ namespace DiscordBot.Modules
         public async Task BiteAsync(params string[] msg)
         {
             await Context.Channel.SendMessageAsync("", false, _emb.ReactionEmbed(Context, "bites", msg).Build(), null).ConfigureAwait(false);
-        }
-
-        [Command("lick")]
-        public async Task LickAsync(params string[] msg)
-        {
-            await Context.Channel.SendMessageAsync("", false, _emb.ReactionEmbed(Context, "licks", msg).Build(), null).ConfigureAwait(false);
         }
 
         [Command("parrot"), Alias("groove")]

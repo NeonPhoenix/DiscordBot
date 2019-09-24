@@ -40,33 +40,5 @@ namespace DiscordBot.Builder
 
             return _embed; 
         }
-
-        public EmbedBuilder RolePlayEmbed(SocketCommandContext context, IUser user, string action, string bodyPart)
-        {
-            string image = _image.RolePlayImage(action);
-
-            _embed = new EmbedBuilder().WithTitle($"{context.Message.Author.Username} {action} {user.Username}");
-            if (Uri.IsWellFormedUriString(image, UriKind.Absolute)) { _embed.WithImageUrl(image); }
-
-            return _embed;
-        }
-
-        public EmbedBuilder RolePlayEmbed(SocketCommandContext context, IUser user, string action)
-        {
-            string img = _image.RolePlayImage(action);
-
-            if (user == null)
-            {
-                _embed = new EmbedBuilder().WithTitle($"{context.Message.Author.Username} {action} everyone!");
-            }
-            else
-            {
-                _embed = new EmbedBuilder().WithTitle($"{context.Message.Author.Username} {action} {user.Username}.");
-            }
-
-            if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
-
-            return _embed;
-        }
     }
 }

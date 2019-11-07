@@ -40,6 +40,20 @@ namespace DiscordBot.Modules
                     else if (modStatus.Equals(true)) { await ReplyAsync($"{modName} has successfully been turned on."); }
                 }
             }
+
+            [Command("enable")]
+            public async Task EnableModuleAsync(string modName)
+            {
+                
+            }
+        }
+
+        [Command("autoassign")]
+        [RequireUserPermission(GuildPermission.ManageGuild)]
+        public async Task AutoAssignAsync(IRole roleName, bool active)
+        {
+            //DatabaseManager
+            await ReplyAsync($"Role '{roleName.Name}' will be applied to new members.");
         }
 
         [Group("precon")]

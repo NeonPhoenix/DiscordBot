@@ -15,6 +15,8 @@ namespace DiscordBot.Managers
         private static ulong guildRole;
         private static ulong guildChannel;
 
+        private static SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+
         //TODO Sanitize SQL inputs
 
         // Create Database
@@ -33,7 +35,7 @@ namespace DiscordBot.Managers
 
                 LoggingService.LogAsync(LogSeverity.Info, _className, "Database table GUILDS has been created.");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LoggingService.LogAsync(LogSeverity.Error, _className, ex.Message);
             }
@@ -143,7 +145,7 @@ namespace DiscordBot.Managers
             }
             finally
             {
-                _connect.Close();    
+                _connect.Close();
             }
 
             return storedPrefix;
@@ -384,7 +386,6 @@ namespace DiscordBot.Managers
         // Modules
         public static bool CheckModuleStatus(string moduleName, string guildID)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
             int moduleStatus = 0;
             bool isActive = false;
 
@@ -399,11 +400,11 @@ namespace DiscordBot.Managers
 
                 while (reader.Read()) { moduleStatus = int.Parse(reader[$"{moduleName}"].ToString()); }
 
-                if(moduleStatus == 1)
+                if (moduleStatus == 1)
                 {
                     isActive = true;
                 }
-                else if(moduleStatus == 0)
+                else if (moduleStatus == 0)
                 {
                     isActive = false;
                 }
@@ -422,8 +423,6 @@ namespace DiscordBot.Managers
 
         public static ExecuteResult ChangeModuleStatus(string moduleName, string guildID, bool moduleStatus)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
-
             try
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
@@ -455,6 +454,67 @@ namespace DiscordBot.Managers
             }
 
             return _result;
+        }
+
+        // Commands
+        public static ExecuteResult AddRoleToAutoAssign(SocketCommandContext context, ulong roleID)
+        {
+            try
+            {
+                SQLiteCommand command = new SQLiteCommand { Connection = _connect };
+
+                if (CheckCommandStatus(commandName, guildID) == false)
+                {
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                _connect.Close();
+            }
+
+            return _result;
+        }
+
+        public static bool CheckCommandStatus(string commandName, string guildID)
+        {
+            int moduleStatus = 0;
+            bool isActive = false;
+
+            try
+            {
+                SQLiteCommand command = new SQLiteCommand { Connection = _connect };
+
+                command.CommandText = $"SELECT {commandName} FROM Guilds WHERE GuildID = {guildID}";
+
+                _connect.Open();
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                while (reader.Read()) { moduleStatus = int.Parse(reader[$"{commandName}"].ToString()); }
+
+                if (moduleStatus == 1)
+                {
+                    isActive = true;
+                }
+                else if (moduleStatus == 0)
+                {
+                    isActive = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingService.LogAsync(LogSeverity.Error, _className, ex.Message);
+            }
+            finally
+            {
+                _connect.Close();
+            }
+
+            return isActive;
         }
     }
 }

@@ -8,8 +8,6 @@ namespace DiscordBot.Modules
     [ComVisible(false)]
     public class ReactionModule : ModuleBase<SocketCommandContext>
     {
-        //TODO Add meow command and images
-
         private CommandEmbedBuilder _emb = new CommandEmbedBuilder();
 
         #region ReactionEmbed
@@ -173,6 +171,11 @@ namespace DiscordBot.Modules
         public async Task CookieAsync(params string[] msg)
         {
             await Context.Channel.SendMessageAsync("", false, _emb.ReactionEmbed(Context, "gives cookie to", msg).Build(), null).ConfigureAwait(false);
+        }
+
+        public async Task MeowAsync(params string[] msg)
+        {
+            await Context.Channel.SendMessageAsync("", false, _emb.ReactionEmbed(Context, "meows at", msg).Build(), null).ConfigureAwait(false);
         }
         #endregion
 

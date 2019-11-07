@@ -41,11 +41,11 @@ namespace DiscordBot.Modules
                 }
             }
 
-            [Command("enable")]
-            public async Task EnableModuleAsync(string modName)
-            {
+            //[Command("enable")]
+            //public async Task EnableModuleAsync(string modName)
+            //{
                 
-            }
+            //}
         }
 
         [Command("autoassign")]

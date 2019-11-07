@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DiscordBot.Events
 {
-    public class CommandMessageEvent
+    public class CommandEvents
     {
         private string RemoveStringFromString(string input, string charItem)
         {
@@ -23,6 +23,15 @@ namespace DiscordBot.Events
             if(mentionedUser.Count() > 1) { user = string.Join(" & ", mentionedUser); } else { user = string.Join(" ", mentionedUser); }
 
             return user;
+        }
+
+        public static string GetMentionedRole(SocketCommandContext ctx)
+        {
+            IEnumerable<string> mentionedRole = ctx.Message.MentionedRoles.Select(x => x.Name);
+
+            string role = string.Join("", mentionedRole);
+
+            return role;
         }
 
         public string CleanMessage(SocketCommandContext ctx, string[] msg)

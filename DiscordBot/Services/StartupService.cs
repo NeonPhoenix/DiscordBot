@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using DiscordBot.Managers;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Reflection;
@@ -12,27 +13,28 @@ namespace DiscordBot.Services
     {
         private readonly DiscordSocketClient _discord;
         private readonly CommandService _commands;
+
+        private readonly IServiceProvider _provider;
         private readonly IConfigurationRoot _config;
 
-        public StartupService(DiscordSocketClient discord, CommandService commands, IConfigurationRoot config)
+        public StartupService(DiscordSocketClient discord, CommandService commands, IServiceProvider provider, IConfigurationRoot config)
         {
-            _config = config;
             _discord = discord;
             _commands = commands;
+            _provider = provider;
+            _config = config;
         }
 
         public async Task StartAsync()
         {
-            string discordToken = _config["Tokens:Discord"];
-            if (string.IsNullOrWhiteSpace(discordToken))
-                throw new Exception("Please enter your bot's token into the '_configuration.json' file found in the applications root directory!");
+            string discordToken = _config["DiscordToken"];
 
             await _discord.LoginAsync(TokenType.Bot, discordToken);
             await _discord.StartAsync();
 
-            ConnectionService.InitTimer(_discord);
+            ConnectionManager.InitTimer(_discord);
 
-            await _commands.AddModulesAsync(Assembly.GetEntryAssembly());
+            await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
         }
     }
 }

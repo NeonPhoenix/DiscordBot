@@ -13,9 +13,9 @@ namespace DiscordBot.Events
             return RemoveStringFromString(input.Remove(indexOfChar, 1), charItem);
         }
 
-        public string GetAuthor(SocketCommandContext ctx) { return ctx.Message.Author.Username; }
+        public static string GetAuthor(SocketCommandContext ctx) { return ctx.Message.Author.Username; }
 
-        public string GetMentionedUsername(SocketCommandContext ctx)
+        public static string GetMentionedUsername(SocketCommandContext ctx)
         {
             IEnumerable<string> mentionedUser = ctx.Message.MentionedUsers.Select(x => x.Username);
             string user;

@@ -12,14 +12,12 @@ namespace DiscordBot.Handlers
     {
         private readonly DiscordSocketClient _discord;
         private readonly CommandService _command;
-        private readonly LoggingService _log;
         private readonly IServiceProvider _provider;
 
-        public DiscordEventHandler(DiscordSocketClient client, CommandService command, LoggingService log, IServiceProvider provider)
+        public DiscordEventHandler(DiscordSocketClient client, CommandService command, IServiceProvider provider)
         {
             _discord = client;
             _command = command;
-            _log = log;
             _provider = provider;
 
             _discord.JoinedGuild += JoinedGuild;
@@ -57,8 +55,8 @@ namespace DiscordBot.Handlers
 
         private async Task OnMessageReceivedAsync(SocketMessage s)
         {
-            if (!(s is SocketUserMessage msg)) return;
-            if (msg.Author.Id == _discord.CurrentUser.Id) return;
+            if (!(s is SocketUserMessage msg)) { return; }
+            if (msg.Author.Id == _discord.CurrentUser.Id) { return; }
 
             var context = new SocketCommandContext(_discord, msg);
 

@@ -1,31 +1,28 @@
 ﻿using Discord;
-using DiscordBot.Objects;
 using DiscordBot.Services;
-using System;
 using System.Diagnostics;
 using System.Threading;
 
 namespace DiscordBot.Managers
 {
+    //TODO IMPLEMENT UPDATE CHECK
+    //TODO IMPLEMENT UPGRADE
+    //TODO IMPLEMENT UPDATE GRAB
+
     public class UpdateManager
     {
         private static Timer _timer;
         private static Process _process = Process.GetCurrentProcess();
-
-        private static readonly Manifest _localConfig;
-        private static Manifest _remoteConfig;
 
         private static int DefaultCheckInterval = 900;
 
         private static string _className = "UpdateManager";
         private static string _program = _process.MainModule.FileName.ToString();
 
-        private static volatile bool _updating;
-
         public static void StartMonitoring()
         {
             LoggingService.LogAsync(LogSeverity.Info, _className, $"Starting to monitor for new updates every {DefaultCheckInterval}s.");
-            _timer = new Timer(CheckForUpdate, null, 5000, DefaultCheckInterval);
+            //_timer = new Timer(CheckForUpdate, null, 5000, DefaultCheckInterval);
         }
 
         public static void StopMonitoring()
@@ -35,21 +32,6 @@ namespace DiscordBot.Managers
             if(_timer == null) { LoggingService.LogAsync(LogSeverity.Info, _className, "Monitor was already stopped."); return; }
 
             _timer.Dispose();
-        }
-
-        private static void CheckForUpdate(object state)
-        {
-            //TODO IMPLEMENT UPDATE CHECK
-        }
-
-        private static void UpdateToNewVersion()
-        {
-            //TODO IMPLEMENT UPGRADE
-        }
-
-        private static void FetchUpdate()
-        {
-            //TODO IMPLEMENT UPDATE GRAB
         }
 
         public static void RestartProgram()

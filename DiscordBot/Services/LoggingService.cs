@@ -17,8 +17,6 @@ namespace DiscordBot.Services
 
         public LoggingService(DiscordSocketClient discord, CommandService commands)
         {
-            //_logDirectory = Path.Combine(AppContext.BaseDirectory, "logs");
-
             _discord = discord;
             _commands = commands;
 

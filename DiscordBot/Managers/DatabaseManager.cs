@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace DiscordBot.Managers
 {
-    class DatabaseManager
+    static class DatabaseManager
     {
         private readonly static string _className = MethodBase.GetCurrentMethod().DeclaringType.Name;
         private static ExecuteResult _result = new ExecuteResult();
@@ -457,28 +457,24 @@ namespace DiscordBot.Managers
         }
 
         // Commands
-        //public static ExecuteResult AddRoleToAutoAssign(SocketCommandContext context, ulong roleID)
-        //{
-        //    try
-        //    {
-        //        SQLiteCommand command = new SQLiteCommand { Connection = _connect };
+        public static ExecuteResult AddRoleToAutoAssign(SocketCommandContext context, ulong roleID)
+        {
+            try
+            {
+                SQLiteCommand command = new SQLiteCommand { Connection = _connect };
+            }
+            catch (Exception ex)
+            {
+                LoggingService.LogAsync(LogSeverity.Error, _className, ex.Message);
+                _result = ExecuteResult.FromError(CommandError.Unsuccessful, ex.Message);
+            }
+            finally
+            {
+                _connect.Close();
+            }
 
-        //        //if (CheckCommandStatus(commandName, guildID) == false)
-        //        //{
-                    
-        //        //}
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-        //    finally
-        //    {
-        //        _connect.Close();
-        //    }
-
-        //    return _result;
-        //}
+            return _result;
+        }
 
         public static bool CheckCommandStatus(string commandName, string guildID)
         {

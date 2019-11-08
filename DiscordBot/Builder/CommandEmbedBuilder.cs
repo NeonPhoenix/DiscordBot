@@ -8,8 +8,8 @@ namespace DiscordBot.Builder
     public class CommandEmbedBuilder
     {
         private EmbedBuilder _embed;
-        private ImageEvents _image = new ImageEvents();
-        private CommandEvents _cmd = new CommandEvents();
+        private readonly ImageEvents _image = new ImageEvents();
+        private readonly CommandEvents _cmd = new CommandEvents();
 
         public EmbedBuilder ReactionEmbed(SocketCommandContext ctx, string action, string[] msg)
         {

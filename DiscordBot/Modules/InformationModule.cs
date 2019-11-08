@@ -25,9 +25,8 @@ namespace DiscordBot.Modules
         public async Task Ping()
         {
             var sw = Stopwatch.StartNew();
-            var msg = await Context.Channel.SendMessageAsync("PONG!").ConfigureAwait(false);
             sw.Stop();
-            await Context.Channel.SendMessageAsync($"{Format.Bold(Context.User.ToString())} 🏓 {(int)sw.Elapsed.TotalMilliseconds}ms").ConfigureAwait(false);
+            await Context.Channel.SendMessageAsync($"{Format.Bold(Context.User.ToString())} PONG! {(int)sw.Elapsed.TotalMilliseconds}ms").ConfigureAwait(false);
         }
 
         [Command("prefix")]
@@ -52,8 +51,7 @@ namespace DiscordBot.Modules
 
             if (!result.IsSuccess) { await ReplyAsync($"Sorry, I couldn't find a command like **{command}**!"); return; }
 
-            string prefix = DatabaseManager.CheckGuildPrefix(Context.Guild.Id.ToString());
-            var builder = new EmbedBuilder() { Color = new Color(114, 137, 218), Description = $"Here are some commands like **{command}**!" };
+            var builder = new EmbedBuilder { Color = new Color(114, 137, 218), Description = $"Here are some commands like **{command}**!" };
 
             foreach(var match in result.Commands)
             {

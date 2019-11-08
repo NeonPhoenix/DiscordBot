@@ -8,9 +8,9 @@ using System.IO;
 
 namespace DiscordBot.Managers
 {
-    public class StartupManager
+    public static class StartupManager
     {
-        private protected static string _className = "StartupManager";
+        private static string _className = "StartupManager";
 
         public static void CheckFiles()
         {

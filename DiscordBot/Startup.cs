@@ -23,7 +23,7 @@ namespace DiscordBot
             Configuration = builder.Build();                
         }
 
-        public static async Task RunAsync(string[] args)
+        public async Task RunAsync(string[] args)
         {
             var startup = new Startup(args);
             await startup.RunAsync();

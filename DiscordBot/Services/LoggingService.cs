@@ -10,15 +10,12 @@ namespace DiscordBot.Services
 {
     public class LoggingService
     {
-        private readonly DiscordSocketClient _discord;
-        private readonly CommandService _commands;
-
         private static string _logFile => Path.Combine(Constants._lgPath, $"{DateTime.UtcNow.ToString("yyyy-MM-dd")}.txt");
 
         public LoggingService(DiscordSocketClient discord, CommandService commands)
         {
-            _discord = discord;
-            _commands = commands;
+            DiscordSocketClient _discord = discord;
+            CommandService _commands = commands;
 
             _discord.Log += OnLogAsync;
             _commands.Log += OnLogAsync;
@@ -30,7 +27,7 @@ namespace DiscordBot.Services
             if (!File.Exists(_logFile)) { File.Create(_logFile).Dispose(); }
         }
 
-        private Task OnLogAsync(LogMessage msg)
+        private static Task OnLogAsync(LogMessage msg)
         {
             CheckFiles();
 

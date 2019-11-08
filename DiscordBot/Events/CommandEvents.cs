@@ -25,7 +25,7 @@ namespace DiscordBot.Events
             return user;
         }
 
-        public static string GetMentionedRole(SocketCommandContext ctx)
+        public string GetMentionedRole(SocketCommandContext ctx)
         {
             IEnumerable<string> mentionedRole = ctx.Message.MentionedRoles.Select(x => x.Name);
 

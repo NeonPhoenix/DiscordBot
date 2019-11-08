@@ -9,7 +9,7 @@ namespace DiscordBot.Managers
     //TODO IMPLEMENT UPGRADE
     //TODO IMPLEMENT UPDATE GRAB
 
-    public class UpdateManager
+    static class UpdateManager
     {
         private static Timer _timer;
         private static Process _process = Process.GetCurrentProcess();

@@ -25,7 +25,7 @@ namespace DiscordBot.Handlers
             _discord.MessageReceived += OnMessageReceivedAsync;
         }
 
-        private async Task JoinedGuild(SocketGuild guild)
+        private static async Task JoinedGuild(SocketGuild guild)
         {
             var result = await Task.Run(() => DatabaseManager.CheckGuild(guild.Id.ToString(), guild.Name));
 

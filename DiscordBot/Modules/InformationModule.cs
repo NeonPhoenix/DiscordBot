@@ -97,7 +97,7 @@ namespace DiscordBot.Modules
 
         [Command("whois"), Alias("user", "userinfo")]
         [Summary("Returns information about the current user, or the user parameter, if one passed.")]
-        public async Task Info(IGuildUser usr = null)
+        public async Task Info(IGuildUser usr)
         {
             var user = usr ?? Context.User as IGuildUser;
 

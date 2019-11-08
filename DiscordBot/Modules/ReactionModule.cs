@@ -8,7 +8,7 @@ namespace DiscordBot.Modules
     [ComVisible(false)]
     public class ReactionModule : ModuleBase<SocketCommandContext>
     {
-        private CommandEmbedBuilder _emb = new CommandEmbedBuilder();
+        private readonly CommandEmbedBuilder _emb = new CommandEmbedBuilder();
 
         #region ReactionEmbed
         [Command("kiss")]

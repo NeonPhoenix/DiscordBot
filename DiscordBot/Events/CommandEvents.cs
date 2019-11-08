@@ -6,9 +6,9 @@ namespace DiscordBot.Events
 {
     public class CommandEvents
     {
-        private string RemoveStringFromString(string input, string charItem)
+        private static string RemoveStringFromString(string input, string charItem)
         {
-            var indexOfChar = input.IndexOf(charItem);
+            int indexOfChar = input.IndexOf(charItem);
             if(indexOfChar < 0) { return input; }
             return RemoveStringFromString(input.Remove(indexOfChar, 1), charItem);
         }
@@ -25,7 +25,7 @@ namespace DiscordBot.Events
             return user;
         }
 
-        public string GetMentionedRole(SocketCommandContext ctx)
+        public static string GetMentionedRole(SocketCommandContext ctx)
         {
             IEnumerable<string> mentionedRole = ctx.Message.MentionedRoles.Select(x => x.Name);
 
@@ -34,7 +34,7 @@ namespace DiscordBot.Events
             return role;
         }
 
-        public string CleanMessage(SocketCommandContext ctx, string[] msg)
+        public static string CleanMessage(SocketCommandContext ctx, string[] msg)
         {
             IEnumerable<string> mentionedUserId = ctx.Message.MentionedUsers.Select(x => x.Mention);
 

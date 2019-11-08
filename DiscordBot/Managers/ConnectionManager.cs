@@ -5,7 +5,7 @@ using System.Timers;
 
 namespace DiscordBot.Managers
 {
-    public class ConnectionManager
+    static class ConnectionManager
     {
         private static DiscordSocketClient _discord;
 

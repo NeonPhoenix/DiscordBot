@@ -10,9 +10,9 @@ namespace DiscordBot.Handlers
 {
     public class DiscordEventHandler
     {
-        private readonly DiscordSocketClient _discord;
-        private readonly CommandService _command;
-        private readonly IServiceProvider _provider;
+        private static DiscordSocketClient _discord;
+        private static CommandService _command;
+        private static IServiceProvider _provider;
 
         public DiscordEventHandler(DiscordSocketClient client, CommandService command, IServiceProvider provider)
         {
@@ -39,7 +39,7 @@ namespace DiscordBot.Handlers
             }
         }
 
-        private async Task LeftGuild(SocketGuild guild)
+        private static async Task LeftGuild(SocketGuild guild)
         {
             var result = await Task.Run(() => DatabaseManager.RemoveGuild(guild.Id.ToString(), guild.Name));
 
@@ -53,7 +53,7 @@ namespace DiscordBot.Handlers
             }
         }
 
-        private async Task OnMessageReceivedAsync(SocketMessage s)
+        private static async Task OnMessageReceivedAsync(SocketMessage s)
         {
             if (!(s is SocketUserMessage msg)) { return; }
             if (msg.Author.Id == _discord.CurrentUser.Id) { return; }
@@ -65,7 +65,7 @@ namespace DiscordBot.Handlers
             string prefix = "";
             string storedPrefix = DatabaseManager.CheckGuildPrefix(context.Guild.Id.ToString());
 
-            if (msg.Content.Contains(storedPrefix)) { prefix = storedPrefix; } else { prefix = storedPrefix.ToUpper(); }
+            if (msg.Content.Contains(storedPrefix)) { prefix = storedPrefix.ToLowerInvariant(); } else { prefix = storedPrefix.ToUpperInvariant(); }
 
             if (msg.HasStringPrefix(prefix, ref argPos) || msg.HasMentionPrefix(_discord.CurrentUser, ref argPos))
             {

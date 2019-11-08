@@ -103,7 +103,7 @@ namespace DiscordBot.Modules
 
             List<string> roles = new List<string>();
 
-            if (user == null) return;
+            if (user == null) { return; }
 
             foreach (ulong i in user.RoleIds) { roles.Add(user.Guild.GetRole(i).Name); }
 

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DiscordBot.Events
 {
-    public class CommandEvents
+    static class CommandEvents
     {
         private static string RemoveStringFromString(string input, string charItem)
         {

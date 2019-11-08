@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AphroditeRose", "discordbot\AphroditeRose.csproj", "{F244B65B-ABA8-4E3E-A323-643BD2915A0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AphroditeRose-UnitTests", "AphroditeRose-UnitTests\AphroditeRose-UnitTests.csproj", "{46667B40-05FF-4102-878E-B72ECDD613BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F244B65B-ABA8-4E3E-A323-643BD2915A0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F244B65B-ABA8-4E3E-A323-643BD2915A0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F244B65B-ABA8-4E3E-A323-643BD2915A0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46667B40-05FF-4102-878E-B72ECDD613BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46667B40-05FF-4102-878E-B72ECDD613BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46667B40-05FF-4102-878E-B72ECDD613BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46667B40-05FF-4102-878E-B72ECDD613BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

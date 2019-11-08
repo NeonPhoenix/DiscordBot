@@ -15,7 +15,7 @@ namespace DiscordBot
     {
         public static IConfigurationRoot Configuration { get; set; }
 
-        public Startup(string[] args)
+        private protected Startup(string[] args)
         {
             StartupManager.CheckFiles();
 

@@ -10,19 +10,20 @@ namespace DiscordBot.Handlers
 {
     public class DiscordEventHandler
     {
-        private static DiscordSocketClient _discord;
-        private static CommandService _command;
-        private static IServiceProvider _provider;
 
-        public DiscordEventHandler(DiscordSocketClient client, CommandService command, IServiceProvider provider)
+        private static DiscordSocketClient _discord { get; set; }
+        private static CommandService _command { get; set; }
+        private static IServiceProvider _provider { get; set; }
+
+        private protected DiscordEventHandler(DiscordSocketClient client, CommandService command, IServiceProvider provider)
         {
             _discord = client;
             _command = command;
             _provider = provider;
 
-            _discord.JoinedGuild += JoinedGuild;
-            _discord.LeftGuild += LeftGuild;
-            _discord.MessageReceived += OnMessageReceivedAsync;
+            client.JoinedGuild += JoinedGuild;
+            client.LeftGuild += LeftGuild;
+            client.MessageReceived += OnMessageReceivedAsync;
         }
 
         private static async Task JoinedGuild(SocketGuild guild)
@@ -62,7 +63,7 @@ namespace DiscordBot.Handlers
 
             int argPos = 0;
 
-            string prefix = "";
+            string prefix;
             string storedPrefix = DatabaseManager.CheckGuildPrefix(context.Guild.Id.ToString());
 
             if (msg.Content.Contains(storedPrefix)) { prefix = storedPrefix.ToLowerInvariant(); } else { prefix = storedPrefix.ToUpperInvariant(); }

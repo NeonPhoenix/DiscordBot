@@ -13,7 +13,7 @@ namespace DiscordBot.Utilities
         public static string ConnectionString
         {
             get { return _connectionString; }
-            set { _connectionString = $"Data Source={_dbPath};Version=3;"; }
+            set { _connectionString = value; }
         }
     }
 }

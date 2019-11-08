@@ -14,23 +14,21 @@ namespace DiscordBot.Managers
         private static ExecuteResult _result = new ExecuteResult();
         private static ulong guildRole;
         private static ulong guildChannel;
-
-        private static SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
-
+        
+        static readonly SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
+        
         //TODO Sanitize SQL inputs
 
         // Create Database
         public static void CreateGuildTable()
         {
-            SQLiteConnection conn = new SQLiteConnection(Constants.ConnectionString);
-
             try
             {
                 string createGuildTable = "CREATE TABLE Guilds (GuildID BIGINT(40), GuildPrefix VARCHAR(3), CurrencyModule INTEGER(1), ReactionModule INTEGER(1))";
 
-                SQLiteCommand command = new SQLiteCommand(createGuildTable, conn);
+                SQLiteCommand command = new SQLiteCommand(createGuildTable, _connect);
 
-                conn.Open();
+                _connect.Open();
                 command.ExecuteNonQuery();
 
                 LoggingService.LogAsync(LogSeverity.Info, _className, "Database table GUILDS has been created.");
@@ -41,21 +39,19 @@ namespace DiscordBot.Managers
             }
             finally
             {
-                conn.Close();
+                _connect.Close();
             }
         }
 
         public static void CreateUserTable()
         {
-            SQLiteConnection conn = new SQLiteConnection(Constants.ConnectionString);
-
             try
             {
                 string createTable = "CREATE TABLE GuildUsers (GuildID BIGINT(40), UserID BIGINT(40))";
 
-                SQLiteCommand command = new SQLiteCommand(createTable, conn);
+                SQLiteCommand command = new SQLiteCommand(createTable, _connect);
 
-                conn.Open();
+                _connect.Open();
                 command.ExecuteNonQuery();
 
                 LoggingService.LogAsync(LogSeverity.Info, _className, "Database table GUILDUSERS has been created.");
@@ -66,21 +62,19 @@ namespace DiscordBot.Managers
             }
             finally
             {
-                conn.Close();
+                _connect.Close();
             }
         }
 
         public static void CreatePreconTable()
         {
-            SQLiteConnection conn = new SQLiteConnection(Constants.ConnectionString);
-
             try
             {
                 string createTable = "CREATE TABLE GuildPrecon (GuildID BIGINT(40), PreconName VARCHAR(20), PreconRole BIGINT(40), PreconChannel BIGINT(40))";
 
-                SQLiteCommand command = new SQLiteCommand(createTable, conn);
+                SQLiteCommand command = new SQLiteCommand(createTable, _connect);
 
-                conn.Open();
+                _connect.Open();
                 command.ExecuteNonQuery();
 
                 LoggingService.LogAsync(LogSeverity.Info, _className, "Database table GUILDPRECON has been created.");
@@ -91,7 +85,7 @@ namespace DiscordBot.Managers
             }
             finally
             {
-                conn.Close();
+                _connect.Close();
             }
         }
 
@@ -99,8 +93,6 @@ namespace DiscordBot.Managers
         private static void AddGuild(string guildID, string guildName)
         {
             string guildPrefix = ">";
-
-            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -125,7 +117,6 @@ namespace DiscordBot.Managers
 
         public static string CheckGuildPrefix(string guildID)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
             string storedPrefix = "";
 
             try
@@ -153,8 +144,6 @@ namespace DiscordBot.Managers
 
         public static void ChangeGuildPrefix(string guildID, string guildName, string newPrefix)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
-
             try
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
@@ -178,8 +167,6 @@ namespace DiscordBot.Managers
 
         public static ExecuteResult CheckGuild(string guildID, string guildName)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
-
             try
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
@@ -214,8 +201,6 @@ namespace DiscordBot.Managers
 
         public static ExecuteResult RemoveGuild(string guildID, string guildName)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
-
             try
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
@@ -247,8 +232,6 @@ namespace DiscordBot.Managers
         // Precondition
         public static ExecuteResult AddPreconditionRole(SocketCommandContext context, string preconName, ulong roleID)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
-
             try
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
@@ -276,8 +259,6 @@ namespace DiscordBot.Managers
 
         public static ExecuteResult AssignPreconditionToChannel(SocketCommandContext context, string preconName, ulong roleID, ulong channelID)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
-
             try
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
@@ -304,8 +285,6 @@ namespace DiscordBot.Managers
 
         public static ExecuteResult RemovePreconditionRole(SocketCommandContext context, string preconName, ulong roleID)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
-
             try
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
@@ -331,8 +310,6 @@ namespace DiscordBot.Managers
 
         public static ulong CheckPreconditionRole(ICommandContext context, string preconName)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
-
             try
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
@@ -358,8 +335,6 @@ namespace DiscordBot.Managers
 
         public static ulong CheckPreconditionChannel(ICommandContext context, string preconName)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
-
             try
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
@@ -425,7 +400,7 @@ namespace DiscordBot.Managers
         {
             try
             {
-                SQLiteCommand command = new SQLiteCommand { Connection = _connect };
+                SQLiteCommand command = new SQLiteCommand { Connection = DatabaseManager._connect };
 
                 if (CheckModuleStatus(moduleName, guildID) == false)
                 {
@@ -438,7 +413,7 @@ namespace DiscordBot.Managers
                     _result = ExecuteResult.FromSuccess();
                 }
 
-                _connect.Open();
+                DatabaseManager._connect.Open();
                 command.ExecuteNonQuery();
 
                 LoggingService.LogAsync(LogSeverity.Info, _className, $"{moduleName} has been changed for {guildID}.");
@@ -450,7 +425,7 @@ namespace DiscordBot.Managers
             }
             finally
             {
-                _connect.Close();
+                DatabaseManager._connect.Close();
             }
 
             return _result;

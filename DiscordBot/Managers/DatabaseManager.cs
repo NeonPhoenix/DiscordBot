@@ -15,14 +15,14 @@ namespace DiscordBot.Managers
         private static ulong guildRole;
         private static ulong guildChannel;
 
-        private static SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+        private static SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
         //TODO Sanitize SQL inputs
 
         // Create Database
         public static void CreateGuildTable()
         {
-            SQLiteConnection conn = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection conn = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -47,7 +47,7 @@ namespace DiscordBot.Managers
 
         public static void CreateUserTable()
         {
-            SQLiteConnection conn = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection conn = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -72,7 +72,7 @@ namespace DiscordBot.Managers
 
         public static void CreatePreconTable()
         {
-            SQLiteConnection conn = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection conn = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -100,7 +100,7 @@ namespace DiscordBot.Managers
         {
             string guildPrefix = ">";
 
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -125,7 +125,7 @@ namespace DiscordBot.Managers
 
         public static string CheckGuildPrefix(string guildID)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
             string storedPrefix = "";
 
             try
@@ -153,7 +153,7 @@ namespace DiscordBot.Managers
 
         public static void ChangeGuildPrefix(string guildID, string guildName, string newPrefix)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -178,7 +178,7 @@ namespace DiscordBot.Managers
 
         public static ExecuteResult CheckGuild(string guildID, string guildName)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -214,7 +214,7 @@ namespace DiscordBot.Managers
 
         public static ExecuteResult RemoveGuild(string guildID, string guildName)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -247,7 +247,7 @@ namespace DiscordBot.Managers
         // Precondition
         public static ExecuteResult AddPreconditionRole(SocketCommandContext context, string preconName, ulong roleID)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -276,7 +276,7 @@ namespace DiscordBot.Managers
 
         public static ExecuteResult AssignPreconditionToChannel(SocketCommandContext context, string preconName, ulong roleID, ulong channelID)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -304,7 +304,7 @@ namespace DiscordBot.Managers
 
         public static ExecuteResult RemovePreconditionRole(SocketCommandContext context, string preconName, ulong roleID)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -331,7 +331,7 @@ namespace DiscordBot.Managers
 
         public static ulong CheckPreconditionRole(ICommandContext context, string preconName)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {
@@ -358,7 +358,7 @@ namespace DiscordBot.Managers
 
         public static ulong CheckPreconditionChannel(ICommandContext context, string preconName)
         {
-            SQLiteConnection _connect = new SQLiteConnection(Constants._connectionString);
+            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
             try
             {

@@ -282,7 +282,6 @@
     <Compile Include="Objects\ReactionObject.cs" />
     <Compile Include="Preconditions\ModuleCheck.cs" />
     <Compile Include="Preconditions\RolePlayRoles.cs" />
-    <Compile Include="Events\CommandEvents.cs" />
     <Compile Include="Events\ImageEvents.cs" />
     <Compile Include="Modules\CurrencyModule.cs" />
     <Compile Include="Managers\ConnectionManager.cs" />

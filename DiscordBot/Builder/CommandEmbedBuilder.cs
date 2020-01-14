@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using DiscordBot.Events;
 using System;
 
@@ -9,17 +10,15 @@ namespace DiscordBot.Builder
     {
         private static EmbedBuilder _embed;
 
-        public static EmbedBuilder ReactionEmbed(SocketCommandContext ctx, string img, string action, string[] msg)
+        public static EmbedBuilder ReactionEmbed(SocketCommandContext ctx, SocketGuildUser usr, string img, string action)
         {
-            string mentioned = CommandEvents.GetMentionedUsername(ctx);
-
-            if (string.IsNullOrWhiteSpace(mentioned))
+            if (usr == null)
             {
-                _embed = new EmbedBuilder().WithTitle($"{CommandEvents.GetAuthor(ctx)} {action} everyone! {CommandEvents.CleanMessage(ctx, msg)}");
+                _embed = new EmbedBuilder().WithTitle($"{ctx.User.Username} {action} everyone!");
             }
             else
             {
-                _embed = new EmbedBuilder().WithTitle($"{CommandEvents.GetAuthor(ctx)} {action} {mentioned} {CommandEvents.CleanMessage(ctx, msg)}");
+                _embed = new EmbedBuilder().WithTitle($"{ctx.User.Username} {action} {usr.Username}");
             }
 
             if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
@@ -27,9 +26,9 @@ namespace DiscordBot.Builder
             return _embed;
         }
 
-        public static EmbedBuilder ReactionEmbed2(SocketCommandContext ctx, string img, string action, string[] msg)
+        public static EmbedBuilder ReactionEmbed2(SocketCommandContext ctx, string img, string action)
         {
-            _embed = new EmbedBuilder().WithTitle($"{CommandEvents.GetAuthor(ctx)} {action}! {CommandEvents.CleanMessage(ctx, msg)}");
+            _embed = new EmbedBuilder().WithTitle($"{ctx.User.Username} {action}!");
 
             if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
 

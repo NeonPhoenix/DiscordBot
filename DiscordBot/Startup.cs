@@ -13,9 +13,9 @@ namespace DiscordBot
 {
     public class Startup
     {
-        public IConfigurationRoot Configuration { get; }
+        public static IConfigurationRoot Configuration { get; set; }
 
-        public Startup(string[] args)
+        private protected Startup(string[] args)
         {
             StartupManager.CheckFiles();
 
@@ -42,15 +42,15 @@ namespace DiscordBot
             await Task.Delay(-1);
         }
 
-        private void ConfigureServices(IServiceCollection services)
+        private static void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(new DiscordSocketClient(new DiscordSocketConfig { LogLevel = LogSeverity.Verbose, MessageCacheSize = 1000 }))
-            .AddSingleton(new CommandService(new CommandServiceConfig { LogLevel = LogSeverity.Verbose, DefaultRunMode = RunMode.Async, CaseSensitiveCommands = false }))
-            .AddSingleton<StartupService>()         
-            .AddSingleton<LoggingService>()         
-            .AddSingleton<DiscordEventHandler>()
-            .AddSingleton<Random>()                
-            .AddSingleton(Configuration);
+                .AddSingleton(new CommandService(new CommandServiceConfig { LogLevel = LogSeverity.Verbose, DefaultRunMode = RunMode.Async, CaseSensitiveCommands = false }))
+                .AddSingleton<LoggingService>()
+                .AddSingleton<StartupService>()
+                .AddSingleton<DiscordEventHandler>()
+                .AddSingleton<Random>()
+                .AddSingleton(Configuration);
         }
     }
 }

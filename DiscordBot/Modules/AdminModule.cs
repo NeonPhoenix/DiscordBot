@@ -41,11 +41,7 @@ namespace DiscordBot.Modules
                 }
             }
 
-            //[Command("enable")]
-            //public async Task EnableModuleAsync(string modName)
-            //{
-                
-            //}
+            // TODO Add enable and disable module commands
         }
 
         [Command("autoassign")]

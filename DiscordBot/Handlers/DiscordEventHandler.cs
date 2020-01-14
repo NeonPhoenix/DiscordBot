@@ -10,24 +10,23 @@ namespace DiscordBot.Handlers
 {
     public class DiscordEventHandler
     {
-        private readonly DiscordSocketClient _discord;
-        private readonly CommandService _command;
-        private readonly LoggingService _log;
-        private readonly IServiceProvider _provider;
 
-        public DiscordEventHandler(DiscordSocketClient client, CommandService command, LoggingService log, IServiceProvider provider)
+        private static DiscordSocketClient _discord { get; set; }
+        private static CommandService _command { get; set; }
+        private static IServiceProvider _provider { get; set; }
+
+        public DiscordEventHandler(DiscordSocketClient client, CommandService command, IServiceProvider provider)
         {
             _discord = client;
             _command = command;
-            _log = log;
             _provider = provider;
 
-            _discord.JoinedGuild += JoinedGuild;
-            _discord.LeftGuild += LeftGuild;
-            _discord.MessageReceived += OnMessageReceivedAsync;
+            client.JoinedGuild += JoinedGuild;
+            client.LeftGuild += LeftGuild;
+            client.MessageReceived += OnMessageReceivedAsync;
         }
 
-        private async Task JoinedGuild(SocketGuild guild)
+        private static async Task JoinedGuild(SocketGuild guild)
         {
             var result = await Task.Run(() => DatabaseManager.CheckGuild(guild.Id.ToString(), guild.Name));
 
@@ -41,7 +40,7 @@ namespace DiscordBot.Handlers
             }
         }
 
-        private async Task LeftGuild(SocketGuild guild)
+        private static async Task LeftGuild(SocketGuild guild)
         {
             var result = await Task.Run(() => DatabaseManager.RemoveGuild(guild.Id.ToString(), guild.Name));
 
@@ -55,19 +54,19 @@ namespace DiscordBot.Handlers
             }
         }
 
-        private async Task OnMessageReceivedAsync(SocketMessage s)
+        private static async Task OnMessageReceivedAsync(SocketMessage s)
         {
-            if (!(s is SocketUserMessage msg)) return;
-            if (msg.Author.Id == _discord.CurrentUser.Id) return;
+            if (!(s is SocketUserMessage msg)) { return; }
+            if (msg.Author.Id == _discord.CurrentUser.Id) { return; }
 
             var context = new SocketCommandContext(_discord, msg);
 
             int argPos = 0;
 
-            string prefix = "";
+            string prefix;
             string storedPrefix = DatabaseManager.CheckGuildPrefix(context.Guild.Id.ToString());
 
-            if (msg.Content.Contains(storedPrefix)) { prefix = storedPrefix; } else { prefix = storedPrefix.ToUpper(); }
+            if (msg.Content.Contains(storedPrefix)) { prefix = storedPrefix.ToLowerInvariant(); } else { prefix = storedPrefix.ToUpperInvariant(); }
 
             if (msg.HasStringPrefix(prefix, ref argPos) || msg.HasMentionPrefix(_discord.CurrentUser, ref argPos))
             {

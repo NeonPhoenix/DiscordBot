@@ -4,18 +4,18 @@ using System.Linq;
 
 namespace DiscordBot.Events
 {
-    public class CommandEvents
+    static class CommandEvents
     {
-        private string RemoveStringFromString(string input, string charItem)
+        private static string RemoveStringFromString(string input, string charItem)
         {
-            var indexOfChar = input.IndexOf(charItem);
+            int indexOfChar = input.CompareTo(charItem);
             if(indexOfChar < 0) { return input; }
             return RemoveStringFromString(input.Remove(indexOfChar, 1), charItem);
         }
 
-        public string GetAuthor(SocketCommandContext ctx) { return ctx.Message.Author.Username; }
+        public static string GetAuthor(SocketCommandContext ctx) { return ctx.Message.Author.Username; }
 
-        public string GetMentionedUsername(SocketCommandContext ctx)
+        public static string GetMentionedUsername(SocketCommandContext ctx)
         {
             IEnumerable<string> mentionedUser = ctx.Message.MentionedUsers.Select(x => x.Username);
             string user;
@@ -34,7 +34,7 @@ namespace DiscordBot.Events
             return role;
         }
 
-        public string CleanMessage(SocketCommandContext ctx, string[] msg)
+        public static string CleanMessage(SocketCommandContext ctx, string[] msg)
         {
             IEnumerable<string> mentionedUserId = ctx.Message.MentionedUsers.Select(x => x.Mention);
 

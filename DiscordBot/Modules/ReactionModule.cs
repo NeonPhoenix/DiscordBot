@@ -182,13 +182,13 @@ namespace DiscordBot.Modules
 
         #region ReactionEmbed2 Commands
         [Command("smug")]
-        public async Task SmugAsync(SocketGuildUser usr = null)
+        public async Task SmugAsync()
         {
             await Context.Channel.SendMessageAsync("", false, CommandEmbedBuilder.ReactionEmbed2(Context, ImageEvents.SmugReaction(), "is acting smug").Build(), null).ConfigureAwait(false);
         }
 
         [Command("lewd")]
-        public async Task LewdAsync(SocketGuildUser usr = null)
+        public async Task LewdAsync()
         {
             await Context.Channel.SendMessageAsync("", false, CommandEmbedBuilder.ReactionEmbed2(Context, ImageEvents.LewdReaction(), "thinks that's lewd").Build(), null).ConfigureAwait(false);
         }

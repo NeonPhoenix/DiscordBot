@@ -12,7 +12,7 @@ namespace DiscordBot.Services
     {
         private static string LogFile => Path.Combine(Constants._lgPath, $"{DateTime.UtcNow.ToString("yyyy-MM-dd")}.txt");
 
-        private protected LoggingService(DiscordSocketClient discord, CommandService commands)
+        public LoggingService(DiscordSocketClient discord, CommandService commands)
         {
             DiscordSocketClient _discord = discord;
             CommandService _commands = commands;

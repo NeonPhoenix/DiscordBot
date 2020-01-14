@@ -25,11 +25,11 @@ namespace DiscordBot
 
         public static async Task RunAsync(string[] args)
         {
-            _ = new Startup(args);
-            await Startup.RunAsync().ConfigureAwait(false);
+            var startup = new Startup(args);
+            await startup.RunAsync();
         }
 
-        public static async Task RunAsync()
+        public async Task RunAsync()
         {
             var services = new ServiceCollection();         
             ConfigureServices(services);
@@ -39,18 +39,18 @@ namespace DiscordBot
             provider.GetRequiredService<DiscordEventHandler>();
 
             await provider.GetRequiredService<StartupService>().StartAsync();
-            await Task.Delay(-1).ConfigureAwait(false);
+            await Task.Delay(-1);
         }
 
         private static void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(new DiscordSocketClient(new DiscordSocketConfig { LogLevel = LogSeverity.Verbose, MessageCacheSize = 1000 }))
-            .AddSingleton(new CommandService(new CommandServiceConfig { LogLevel = LogSeverity.Verbose, DefaultRunMode = RunMode.Async, CaseSensitiveCommands = false }))
-            .AddSingleton<StartupService>()         
-            .AddSingleton<LoggingService>()         
-            .AddSingleton<DiscordEventHandler>()
-            .AddSingleton<Random>()                
-            .AddSingleton(Configuration);
+                .AddSingleton(new CommandService(new CommandServiceConfig { LogLevel = LogSeverity.Verbose, DefaultRunMode = RunMode.Async, CaseSensitiveCommands = false }))
+                .AddSingleton<LoggingService>()
+                .AddSingleton<StartupService>()
+                .AddSingleton<DiscordEventHandler>()
+                .AddSingleton<Random>()
+                .AddSingleton(Configuration);
         }
     }
 }

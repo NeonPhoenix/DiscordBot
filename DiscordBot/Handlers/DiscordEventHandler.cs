@@ -15,7 +15,7 @@ namespace DiscordBot.Handlers
         private static CommandService _command { get; set; }
         private static IServiceProvider _provider { get; set; }
 
-        private protected DiscordEventHandler(DiscordSocketClient client, CommandService command, IServiceProvider provider)
+        public DiscordEventHandler(DiscordSocketClient client, CommandService command, IServiceProvider provider)
         {
             _discord = client;
             _command = command;

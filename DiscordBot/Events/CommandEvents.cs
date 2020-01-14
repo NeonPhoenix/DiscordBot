@@ -8,7 +8,7 @@ namespace DiscordBot.Events
     {
         private static string RemoveStringFromString(string input, string charItem)
         {
-            int indexOfChar = input.IndexOf(charItem);
+            int indexOfChar = input.CompareTo(charItem);
             if(indexOfChar < 0) { return input; }
             return RemoveStringFromString(input.Remove(indexOfChar, 1), charItem);
         }

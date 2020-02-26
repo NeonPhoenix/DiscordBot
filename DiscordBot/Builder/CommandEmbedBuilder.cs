@@ -10,16 +10,18 @@ namespace DiscordBot.Builder
     {
         private static EmbedBuilder _embed;
 
-        public static EmbedBuilder ReactionEmbed(IGuildUser gUser, SocketGuildUser usr, string img, string action)
+        public static EmbedBuilder ReactionEmbed(IGuildUser gUser, string img, string action)
         {
-            if (usr == null)
-            {
-                _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action} everyone!");
-            }
-            else
-            {
-                _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action} {usr.Nickname}");
-            }
+            _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action} everyone!");
+
+            if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
+
+            return _embed;
+        }
+
+        public static EmbedBuilder ReactionEmbedMention(IGuildUser gUser, SocketGuildUser usr, string img, string action)
+        {
+            _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action} {usr.Nickname}");
 
             if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
             

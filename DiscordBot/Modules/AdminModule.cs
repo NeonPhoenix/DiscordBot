@@ -56,7 +56,7 @@ namespace DiscordBot.Modules
 
         [Command("auto-assign")]
         [RequireUserPermission(GuildPermission.ManageGuild)]
-        public async Task AutoAssignAsync(IRole roleName = null)
+        public async Task AutoAssignAsync(IRole roleName)
         {
             if (roleName == null) 
             { 

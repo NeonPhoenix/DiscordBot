@@ -164,7 +164,7 @@ namespace DiscordBot.Modules
 
         private async Task AddModuleEmbedField(ModuleInfo module, EmbedBuilder builder)
         {
-            if (module is null) return;
+            if (module is null) { return; }
 
             var descriptionBuilder = new List<string>();
             var duplicateChecker = new List<string>();
@@ -173,7 +173,7 @@ namespace DiscordBot.Modules
             {
                 var result = await cmd.CheckPreconditionsAsync(Context);
 
-                if (!result.IsSuccess || duplicateChecker.Contains(cmd.Aliases.First())) continue;
+                if (!result.IsSuccess || duplicateChecker.Contains(cmd.Aliases.First())) { continue; }
 
                 duplicateChecker.Add(cmd.Aliases.First());
                 var cmdDescription = $"`{cmd.Aliases.First()}`";

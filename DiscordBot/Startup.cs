@@ -26,7 +26,7 @@ namespace DiscordBot
         public static async Task RunAsync(string[] args)
         {
             var startup = new Startup(args);
-            await startup.RunAsync();
+            await startup.RunAsync().ConfigureAwait(false);
         }
 
         public async Task RunAsync()
@@ -41,7 +41,7 @@ namespace DiscordBot
             ConnectionManager.InitTimer();
 
             await provider.GetRequiredService<StartupService>().StartAsync();
-            await Task.Delay(-1);
+            await Task.Delay(-1).ConfigureAwait(false);
         }
 
         private static void ConfigureServices(IServiceCollection services)

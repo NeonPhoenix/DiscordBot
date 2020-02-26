@@ -12,6 +12,8 @@ namespace DiscordBot.Utilities
 
         private static string _connectionString = $"Data Source={_dbPath};Version=3;";
 
+        internal static readonly string InvisibleString = "\u200b";
+
         public static string ConnectionString
         {
             get { return _connectionString; }

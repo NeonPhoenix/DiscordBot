@@ -194,8 +194,14 @@ namespace DiscordBot.Events
             return rObject.Action.Lewd[ran.Next(0, rObject.Action.Lewd.Count)];
         }
 
+        internal static string CheerReaction()
+        {
+            ReactionObject rObject = JsonConvert.DeserializeObject<ReactionObject>(File.ReadAllText(Constants._rcPath));
+            return rObject.Action.Cheer[ran.Next(0, rObject.Action.Cheer.Count)];
+        }
+
         //TODO Remove smaller images and replace with larger ones
-        //TODO Add more images to groove command
+        
     }
 
     

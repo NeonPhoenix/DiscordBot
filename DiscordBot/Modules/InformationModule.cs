@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using DiscordBot.Managers;
+using DiscordBot.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +15,8 @@ namespace DiscordBot.Modules
     public class InformationModule : ModuleBase<SocketCommandContext>
     {
         private readonly CommandService _service;
+
+        private int _fieldRange = 10;
 
         public InformationModule(CommandService service)
         {
@@ -29,19 +32,49 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync($"{Format.Bold(Context.User.ToString())} PONG! {(int)sw.Elapsed.TotalMilliseconds}ms").ConfigureAwait(false);
         }
 
-        [Command("prefix")]
-        public async Task PrefixAsync()
-        {
-            string prefix = DatabaseManager.CheckGuildPrefix(Context.Guild.Id.ToString());
-            await ReplyAsync($"Current set prefix is {prefix}");
-        }
-
         [Command("help")]
         [Summary("Gives information on commands and their usages.")]
         public async Task HelpAsync()
         {
-            //TODO IMPLEMENT HELP THAT DOES NOT CRASH
-            await Context.Channel.SendMessageAsync("Seems like this command has not been completed. Better luck next time.");
+            await Context.Channel.SendMessageAsync("Check your DMs.");
+
+            var dmChannel = await Context.User.GetOrCreateDMChannelAsync();
+            var contextString = Context.Guild?.Name ?? "DMs with me";
+            var builder = new EmbedBuilder
+            {
+                Title = "Help",
+                Description = $"These are the commands you can use in {contextString}",
+                Color = new Color(114, 137, 218)
+            };
+
+            foreach (var module in _service.Modules) { await AddModuleEmbedField(module, builder); }
+
+            var fields = builder.Fields.ToList();
+
+            while(builder.Length > 6000)
+            {
+                builder.Fields.RemoveRange(0, fields.Count);
+                var firstSet = fields.Take(_fieldRange);
+                builder.Fields.AddRange(firstSet);
+
+                if(builder.Length > 6000) { _fieldRange--; continue; }
+
+                await dmChannel.SendMessageAsync("", false, builder.Build());
+
+                fields.RemoveRange(0, _fieldRange);
+                builder.Fields.RemoveRange(0, _fieldRange);
+                builder.Fields.AddRange(fields);
+            }
+
+            await dmChannel.SendMessageAsync("", false, builder.Build());
+
+            builder.WithTitle("").WithDescription("").WithAuthor("");
+
+            while(builder.Fields.Count > 24)
+            {
+                builder.Fields.RemoveRange(0, 25);
+                await dmChannel.SendMessageAsync("", false, builder.Build());
+            }
         }
 
         [Command("help")]
@@ -63,6 +96,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("stats")]
+        [Summary("Returns user based stats, for example most used command.")]
         public async Task StatsAsync()
         {
             await Context.Channel.SendMessageAsync("Seems like this command has not been completed. Better luck next time.");
@@ -96,7 +130,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("whois"), Alias("user", "userinfo")]
-        [Summary("Returns information about the current user, or the user parameter, if one passed.")]
+        [Summary("Returns information about the current user, or the chosen user, if one passed.")]
         public async Task Info(IGuildUser usr)
         {
             var user = usr ?? Context.User as IGuildUser;
@@ -126,6 +160,42 @@ namespace DiscordBot.Modules
             if (user.AvatarId != null) { embed.WithThumbnailUrl(user.GetAvatarUrl()); }
 
             await Context.Channel.SendMessageAsync("", false, embed.Build(), null).ConfigureAwait(false);
+        }
+
+        private async Task AddModuleEmbedField(ModuleInfo module, EmbedBuilder builder)
+        {
+            if (module is null) return;
+
+            var descriptionBuilder = new List<string>();
+            var duplicateChecker = new List<string>();
+
+            foreach (var cmd in module.Commands)
+            {
+                var result = await cmd.CheckPreconditionsAsync(Context);
+
+                if (!result.IsSuccess || duplicateChecker.Contains(cmd.Aliases.First())) continue;
+
+                duplicateChecker.Add(cmd.Aliases.First());
+                var cmdDescription = $"`{cmd.Aliases.First()}`";
+
+                if (!string.IsNullOrEmpty(cmd.Summary)) { cmdDescription += $" | {cmd.Summary}"; }
+                if (!string.IsNullOrEmpty(cmd.Remarks)) { cmdDescription += $" | {cmd.Remarks}"; }
+                if (cmdDescription != "``") { descriptionBuilder.Add(cmdDescription); }
+            }
+
+            if (descriptionBuilder.Count <= 0) { return; }
+
+            var builtString = string.Join("\n", descriptionBuilder);
+            var testLength = builtString.Length;
+
+            if (testLength >= 1024) { throw new ArgumentException("Value cannto exceed 1024 characters."); }
+
+            var moduleNotes = "";
+
+            if (!string.IsNullOrEmpty(module.Summary)) { moduleNotes += $" {module.Summary}"; }
+            if (!string.IsNullOrEmpty(module.Remarks)) { moduleNotes += $" {module.Remarks}"; }
+            if (!string.IsNullOrEmpty(moduleNotes)) { moduleNotes += "\n"; }
+            if (!string.IsNullOrEmpty(module.Name)) { builder.AddField($"__**{module.Name}:**__", $"{moduleNotes} {builtString}\n{Constants.InvisibleString}"); }
         }
     }
 }

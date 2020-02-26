@@ -18,7 +18,16 @@ namespace DiscordBot.Modules
             await usr.KickAsync();
         }
 
-        [Command("prefix")]
+        //TODO add warn command
+        //TODO add ban - unban command
+        //TODO add timeout command - mute - unmute
+        //TODO add echo
+        //TODO add announce
+        //TODO add game command
+        //TODO add purge - number of messages - user and number of messages
+        //TODO add prune - remove users for inactivety 
+
+        [Command("set-prefix")]
         [RequireUserPermission(GuildPermission.ManageGuild)]
         public async Task PrefixAsync(string newPrefix)
         {
@@ -34,6 +43,7 @@ namespace DiscordBot.Modules
             public async Task ToggleAsync(string modName, bool modStatus)
             {
                 var result = await Task.Run(() => DatabaseManager.ChangeModuleStatus(modName, Context.Guild.Id.ToString(), modStatus));
+                
                 if (result.IsSuccess)
                 {
                     if (modStatus.Equals(false)) { await ReplyAsync($"{modName} has successfully been turned off."); }
@@ -44,12 +54,18 @@ namespace DiscordBot.Modules
             // TODO Add enable and disable module commands
         }
 
-        [Command("autoassign")]
+        [Command("auto-assign")]
         [RequireUserPermission(GuildPermission.ManageGuild)]
-        public async Task AutoAssignAsync(IRole roleName, bool active)
+        public async Task AutoAssignAsync(IRole roleName = null)
         {
-            //DatabaseManager
-            await ReplyAsync($"Role '{roleName.Name}' will be applied to new members.");
+            if (roleName == null) 
+            { 
+                await Context.Channel.SendMessageAsync("No one will get a role on join from me!");
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync($"Everyone will get the role {roleName.Name} when they join!");
+            }
         }
 
         [Group("precon")]

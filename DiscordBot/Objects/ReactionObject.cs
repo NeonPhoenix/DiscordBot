@@ -28,7 +28,6 @@ namespace DiscordBot.Objects
         public List<string> Pet { get; set; }
         public List<string> Slap { get; set; }
         public List<string> Bite { get; set; }
-        public List<string> Lick { get; set; }
         public List<string> Groove { get; set; }
         public List<string> Confused { get; set; }
         public List<string> Pout { get; set; }
@@ -43,5 +42,6 @@ namespace DiscordBot.Objects
         public List<string> Drool { get; set; }
         public List<string> Cookie { get; set; }
         public List<string> Meow { get; set; }
+        public List<string> Cheer { get; set; }
     }
 }

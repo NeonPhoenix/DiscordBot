@@ -10,15 +10,15 @@ namespace DiscordBot.Builder
     {
         private static EmbedBuilder _embed;
 
-        public static EmbedBuilder ReactionEmbed(SocketCommandContext ctx, SocketGuildUser usr, string img, string action)
+        public static EmbedBuilder ReactionEmbed(IGuildUser gUser, SocketGuildUser usr, string img, string action)
         {
             if (usr == null)
             {
-                _embed = new EmbedBuilder().WithTitle($"{ctx.User.Username} {action} everyone!");
+                _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action} everyone!");
             }
             else
             {
-                _embed = new EmbedBuilder().WithTitle($"{ctx.User.Username} {action} {usr.Username}");
+                _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action} {usr.Nickname}");
             }
 
             if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
@@ -26,9 +26,9 @@ namespace DiscordBot.Builder
             return _embed;
         }
 
-        public static EmbedBuilder ReactionEmbed2(SocketCommandContext ctx, string img, string action)
+        public static EmbedBuilder ReactionEmbed2(IGuildUser gUser, string img, string action)
         {
-            _embed = new EmbedBuilder().WithTitle($"{ctx.User.Username} {action}!");
+            _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action}!");
 
             if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
 

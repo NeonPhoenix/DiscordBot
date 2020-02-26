@@ -278,7 +278,9 @@
     <Compile Include="Handlers\DiscordEventHandler.cs" />
     <Compile Include="Builder\CommandEmbedBuilder.cs" />
     <Compile Include="Managers\StartupManager.cs" />
-    <Compile Include="Objects\ImageEventURL.cs" />
+    <Compile Include="Modules\MiscModule.cs" />
+    <Compile Include="Modules\WebhookModule.cs" />
+    <Compile Include="Modules\WelcomerModule.cs" />
     <Compile Include="Objects\ReactionObject.cs" />
     <Compile Include="Preconditions\ModuleCheck.cs" />
     <Compile Include="Preconditions\RolePlayRoles.cs" />

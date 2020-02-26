@@ -1,32 +1,41 @@
 ﻿using Discord;
 using Discord.WebSocket;
 using DiscordBot.Services;
+using System;
 using System.Timers;
 
 namespace DiscordBot.Managers
 {
     static class ConnectionManager
     {
-        private static DiscordSocketClient _discord;
+        private static readonly DiscordSocketClient _discord;
 
-        public static void InitTimer(DiscordSocketClient client)
+        public static void InitTimer()
         {
-            _discord = client;
-
             Timer timer = new Timer(1000 * 60 * 5) { AutoReset = true };
             timer.Elapsed += CheckConnectionState;
             timer.Start();
         }
 
         private static void CheckConnectionState(object sender, ElapsedEventArgs e)
-        { 
+        {
             var state = _discord.ConnectionState.ToString();
 
-            if(state == ConnectionState.Disconnected.ToString() || state == ConnectionState.Disconnecting.ToString())
+            try
             {
-                LoggingService.LogAsync(LogSeverity.Info, $"Current Connection State: {state}");
-                LoggingService.LogAsync(LogSeverity.Info, "Restarting Application");
-
+                if(state == ConnectionState.Disconnected.ToString() || state == ConnectionState.Disconnecting.ToString())
+                {
+                    LoggingService.LogAsync(LogSeverity.Info, $"Current Connection State: {state}");
+                    LoggingService.LogAsync(LogSeverity.Info, "Restarting Application");
+                    _discord.StopAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingService.LogAsync(LogSeverity.Error, $"Connection has errored - Restarting Application");
+            }
+            finally
+            {
                 UpdateManager.RestartProgram();
             }
         }

@@ -32,7 +32,7 @@ namespace DiscordBot.Services
             await _discord.LoginAsync(TokenType.Bot, discordToken);
             await _discord.StartAsync();
 
-            ConnectionManager.InitTimer(_discord);
+            ConnectionManager.InitTimer();
 
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
         }

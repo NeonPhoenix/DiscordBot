@@ -38,6 +38,8 @@ namespace DiscordBot
             provider.GetRequiredService<LoggingService>();
             provider.GetRequiredService<DiscordEventHandler>();
 
+            ConnectionManager.InitTimer();
+
             await provider.GetRequiredService<StartupService>().StartAsync();
             await Task.Delay(-1);
         }

@@ -31,7 +31,7 @@ namespace DiscordBot.Managers
                 File.WriteAllText(Constants._tkPath, JsonConvert.SerializeObject(tk));
                 LoggingService.LogAsync(LogSeverity.Info, _className, "New token file has been created.");
             }
-            catch (Exception ex)
+            catch (IOException ex)
             {
                 LoggingService.LogAsync(LogSeverity.Error, _className, ex.Message);
             }

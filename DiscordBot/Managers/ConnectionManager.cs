@@ -21,23 +21,8 @@ namespace DiscordBot.Managers
         {
             var state = _discord.ConnectionState.ToString();
 
-            try
-            {
-                if(state == ConnectionState.Disconnected.ToString() || state == ConnectionState.Disconnecting.ToString())
-                {
-                    LoggingService.LogAsync(LogSeverity.Info, $"Current Connection State: {state}");
-                    LoggingService.LogAsync(LogSeverity.Info, "Restarting Application");
-                    _discord.StopAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                LoggingService.LogAsync(LogSeverity.Error, $"Connection has errored - Restarting Application");
-            }
-            finally
-            {
-                UpdateManager.RestartProgram();
-            }
+            LoggingService.LogAsync(LogSeverity.Info, $"Current Connection State: {state}");
+            LoggingService.LogAsync(LogSeverity.Info, "Restarting Application");
         }
     }
 }

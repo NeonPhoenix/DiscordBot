@@ -458,26 +458,26 @@ namespace DiscordBot.Managers
         }
 
         // Commands
-        public static ExecuteResult AddRoleToAutoAssign(SocketCommandContext context, ulong roleID)
-        {
-            SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
+        //public static ExecuteResult AddRoleToAutoAssign(SocketCommandContext context, ulong roleID)
+        //{
+        //    SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 
-            try
-            {
-                SQLiteCommand command = new SQLiteCommand { Connection = _connect };
-            }
-            catch (Exception ex)
-            {
-                LoggingService.LogAsync(LogSeverity.Error, _className, ex.Message);
-                _result = ExecuteResult.FromError(CommandError.Unsuccessful, ex.Message);
-            }
-            finally
-            {
-                _connect.Close();
-            }
+        //    try
+        //    {
+        //        SQLiteCommand command = new SQLiteCommand { Connection = _connect };
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LoggingService.LogAsync(LogSeverity.Error, _className, ex.Message);
+        //        _result = ExecuteResult.FromError(CommandError.Unsuccessful, ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        _connect.Close();
+        //    }
 
-            return _result;
-        }
+        //    return _result;
+        //}
 
         public static bool CheckCommandStatus(string commandName, string guildID)
         {

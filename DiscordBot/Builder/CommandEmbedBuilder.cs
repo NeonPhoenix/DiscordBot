@@ -8,11 +8,9 @@ namespace DiscordBot.Builder
 {
     public class CommandEmbedBuilder
     {
-        private static EmbedBuilder _embed;
-
         public static EmbedBuilder ReactionEmbed(IGuildUser gUser, string img, string action)
         {
-            _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action} everyone!");
+            EmbedBuilder _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action} everyone!");
 
             if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
 
@@ -21,7 +19,7 @@ namespace DiscordBot.Builder
 
         public static EmbedBuilder ReactionEmbedMention(IGuildUser gUser, SocketGuildUser usr, string img, string action)
         {
-            _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action} {usr.Nickname}");
+            EmbedBuilder _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action} {usr.Nickname}");
 
             if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
             
@@ -30,7 +28,7 @@ namespace DiscordBot.Builder
 
         public static EmbedBuilder ReactionEmbed2(IGuildUser gUser, string img, string action)
         {
-            _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action}!");
+            EmbedBuilder _embed = new EmbedBuilder().WithTitle($"{gUser.Nickname} {action}!");
 
             if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
 

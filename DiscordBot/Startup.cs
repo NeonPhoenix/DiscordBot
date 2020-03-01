@@ -25,7 +25,6 @@ namespace DiscordBot
 
         public static async Task RunAsync(string[] args)
         {
-            var startup = new Startup(args);
             await Startup.RunAsync().ConfigureAwait(false);
         }
 

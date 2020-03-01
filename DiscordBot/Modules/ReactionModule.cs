@@ -11,9 +11,6 @@ namespace DiscordBot.Modules
     [ComVisible(false)]
     public class ReactionModule : ModuleBase<SocketCommandContext>
     {
-        //TODO Add more images to groove command
-        //TODO Change command to "groove"
-
         #region ReactionEmbed No User
         [Command("kiss")]
         public async Task KissAsync()
@@ -355,7 +352,6 @@ namespace DiscordBot.Modules
         #endregion
 
         #region ReactionEmbed2 Commands
-        //TODO Make bored command
         [Command("smug")]
         public async Task SmugAsync()
         {
@@ -372,6 +368,12 @@ namespace DiscordBot.Modules
         public async Task CheerAsync()
         {
             await Context.Channel.SendMessageAsync("", false, CommandEmbedBuilder.ReactionEmbed2((IGuildUser)Context.User, ImageEvents.CheerReaction(), "cheers").Build(), null).ConfigureAwait(false);
+        }
+
+        [Command("bored")]
+        public async Task BoredAsync()
+        {
+            await Context.Channel.SendMessageAsync("", false, CommandEmbedBuilder.ReactionEmbed2((IGuildUser)Context.User, ImageEvents.BoredReaction(), "is super bored").Build(), null).ConfigureAwait(false);
         }
         #endregion
     }

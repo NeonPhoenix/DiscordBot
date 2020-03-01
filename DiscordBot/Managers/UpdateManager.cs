@@ -5,11 +5,6 @@ using System.Threading;
 
 namespace DiscordBot.Managers
 {
-    //TODO Implement monitoring for updates
-    //TODO IMPLEMENT UPDATE CHECK
-    //TODO IMPLEMENT UPGRADE
-    //TODO IMPLEMENT UPDATE GRAB
-
     static class UpdateManager
     {
         private static Process _process = Process.GetCurrentProcess();

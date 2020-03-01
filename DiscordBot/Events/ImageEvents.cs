@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace DiscordBot.Events
 {
@@ -198,11 +199,6 @@ namespace DiscordBot.Events
         {
             ReactionObject rObject = JsonConvert.DeserializeObject<ReactionObject>(File.ReadAllText(Constants._rcPath));
             return rObject.Action.Cheer[ran.Next(0, rObject.Action.Cheer.Count)];
-        }
-
-        //TODO Remove smaller images and replace with larger ones
-        
+        }       
     }
-
-    
 }

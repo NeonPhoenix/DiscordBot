@@ -35,6 +35,4 @@ namespace DiscordBot.Preconditions
             return Task.FromResult(PreconditionResult.FromSuccess());
         }
     }
-
-    //TODO keep precon for roles
 }

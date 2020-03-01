@@ -8,6 +8,6 @@ namespace DiscordBot.Modules
 {
     class MiscModule
     {
-        //TODO add Hello command
+
     }
 }

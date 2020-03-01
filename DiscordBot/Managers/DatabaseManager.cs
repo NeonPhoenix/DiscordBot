@@ -14,8 +14,6 @@ namespace DiscordBot.Managers
         private static ExecuteResult _result = new ExecuteResult();
         private static ulong guildRole;
         private static ulong guildChannel;
-   
-        //TODO Sanitize SQL inputs
 
         // Create Database
         public static void CreateGuildTable()

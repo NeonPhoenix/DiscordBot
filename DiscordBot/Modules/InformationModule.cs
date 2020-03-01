@@ -47,7 +47,7 @@ namespace DiscordBot.Modules
                 Color = new Color(114, 137, 218)
             };
 
-            foreach (var module in _service.Modules) { await AddModuleEmbedField(module, builder); }
+            foreach (var module in _service.Modules) { await AddModuleEmbedField(module, builder).ConfigureAwait(false); }
 
             var fields = builder.Fields.ToList();
 

@@ -22,7 +22,7 @@ namespace DiscordBot.Managers
         {
             LoggingService.LogAsync(LogSeverity.Warning, _className, "No token file was detected. Creating new file...");
             LoggingService.LogAsync(LogSeverity.Warning, _className, "Please paste your unique discord token below: ");
-            string userInput = Console.ReadLine();
+            var userInput = Console.ReadLine();
 
             Token tk = new Token { DiscordToken = userInput };  
 

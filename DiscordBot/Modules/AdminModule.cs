@@ -18,15 +18,6 @@ namespace DiscordBot.Modules
             await usr.KickAsync();
         }
 
-        //TODO add warn command
-        //TODO add ban - unban command
-        //TODO add timeout command - mute - unmute
-        //TODO add echo
-        //TODO add announce
-        //TODO add game command
-        //TODO add purge - number of messages - user and number of messages
-        //TODO add prune - remove users for inactivety 
-
         [Command("set-prefix")]
         [RequireUserPermission(GuildPermission.ManageGuild)]
         public async Task PrefixAsync(string newPrefix)
@@ -50,8 +41,6 @@ namespace DiscordBot.Modules
                     else if (modStatus.Equals(true)) { await ReplyAsync($"{modName} has successfully been turned on."); }
                 }
             }
-
-            // TODO Add enable and disable module commands
         }
 
         [Command("auto-assign")]

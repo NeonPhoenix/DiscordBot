@@ -1,4 +1,5 @@
 ﻿using Discord;
+using DiscordBot.Objects;
 using DiscordBot.Services;
 using DiscordBot.Utilities;
 using Newtonsoft.Json;
@@ -22,9 +23,12 @@ namespace DiscordBot.Managers
         {
             LoggingService.LogAsync(LogSeverity.Warning, _className, "No token file was detected. Creating new file...");
             LoggingService.LogAsync(LogSeverity.Warning, _className, "Please paste your unique discord token below: ");
-            var userInput = Console.ReadLine();
+            var discordToken = Console.ReadLine();
 
-            Token tk = new Token { DiscordToken = userInput };  
+            LoggingService.LogAsync(LogSeverity.Warning, _className, "Please paste your unique Tenor token below: ");
+            var tenorAPIToken = Console.ReadLine();
+
+            TokenObject tk = new TokenObject { DiscordToken = discordToken, TenorToken = tenorAPIToken };  
 
             try
             {
@@ -55,10 +59,5 @@ namespace DiscordBot.Managers
                 LoggingService.LogAsync(LogSeverity.Error, _className, ex.Message);
             }
         }
-    }
-
-    public class Token
-    {
-        public string DiscordToken { get; set; }
     }
 }

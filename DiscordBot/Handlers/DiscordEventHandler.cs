@@ -4,21 +4,21 @@ using Discord.WebSocket;
 using DiscordBot.Managers;
 using DiscordBot.Services;
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace DiscordBot.Handlers
 {
     public class DiscordEventHandler
     {
+        private readonly DiscordSocketClient _discord;
+        private readonly CommandService _commands;
+        private IServiceProvider _provider;
 
-        private static DiscordSocketClient _discord { get; set; }
-        private static CommandService _command { get; set; }
-        private static IServiceProvider _provider { get; set; }
-
-        public DiscordEventHandler(DiscordSocketClient client, CommandService command, IServiceProvider provider)
+        public DiscordEventHandler(DiscordSocketClient client, CommandService commands, IServiceProvider provider)
         {
             _discord = client;
-            _command = command;
+            _commands = commands;
             _provider = provider;
 
             client.JoinedGuild += JoinedGuild;
@@ -26,7 +26,13 @@ namespace DiscordBot.Handlers
             client.MessageReceived += OnMessageReceivedAsync;
         }
 
-        private static async Task JoinedGuild(SocketGuild guild)
+        public async Task InitializeAsync(IServiceProvider provider)
+        {
+            _provider = provider;
+            await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
+        }
+
+        private async Task JoinedGuild(SocketGuild guild)
         {
             var result = await Task.Run(() => DatabaseManager.CheckGuild(guild.Id.ToString(), guild.Name));
 
@@ -40,7 +46,7 @@ namespace DiscordBot.Handlers
             }
         }
 
-        private static async Task LeftGuild(SocketGuild guild)
+        private async Task LeftGuild(SocketGuild guild)
         {
             var result = await Task.Run(() => DatabaseManager.RemoveGuild(guild.Id.ToString(), guild.Name));
 
@@ -54,10 +60,10 @@ namespace DiscordBot.Handlers
             }
         }
 
-        private static async Task OnMessageReceivedAsync(SocketMessage s)
+        private async Task OnMessageReceivedAsync(SocketMessage s)
         {
             if (!(s is SocketUserMessage msg)) { return; }
-            if (msg.Author.Id == _discord.CurrentUser.Id) { return; }
+            if (msg.Source != MessageSource.User) { return; }
 
             var context = new SocketCommandContext(_discord, msg);
 
@@ -70,7 +76,7 @@ namespace DiscordBot.Handlers
 
             if (msg.HasStringPrefix(prefix, ref argPos) || msg.HasMentionPrefix(_discord.CurrentUser, ref argPos))
             {
-                var result = await _command.ExecuteAsync(context, argPos, _provider);
+                var result = await _commands.ExecuteAsync(context, argPos, _provider);
                 if (!result.IsSuccess)
                 {
                     await context.Channel.SendMessageAsync(result.ToString());

@@ -283,7 +283,7 @@ namespace DiscordBot.Managers
 
                 _connect.Open();
                 command.ExecuteNonQuery();
-                LoggingService.LogAsync(LogSeverity.Info, _className, $"Role {preconName} been assigned to {roleID} to only be used in {channelID} for {context.Guild.Name.ToString()}");
+                LoggingService.LogAsync(LogSeverity.Info, _className, $"Role {preconName} been assigned to {roleID} to only be used in {channelID} for {context.Guild.Name}");
                 _result = ExecuteResult.FromSuccess();
             }
             catch (Exception ex)
@@ -334,7 +334,7 @@ namespace DiscordBot.Managers
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
 
-                command.CommandText = $"SELECT PreconRole FROM GuildPrecon WHERE GuildID = '{context.Guild.Id.ToString()}' AND PreconName = '{preconName}'";
+                command.CommandText = $"SELECT PreconRole FROM GuildPrecon WHERE GuildID = '{context.Guild.Id}' AND PreconName = '{preconName}'";
 
                 _connect.Open();
                 SQLiteDataReader reader = command.ExecuteReader();
@@ -361,7 +361,7 @@ namespace DiscordBot.Managers
             {
                 SQLiteCommand command = new SQLiteCommand { Connection = _connect };
 
-                command.CommandText = $"SELECT PreconChannel FROM GuildPrecon WHERE GuildID = '{context.Guild.Id.ToString()}' AND PreconName = '{preconName}'";
+                command.CommandText = $"SELECT PreconChannel FROM GuildPrecon WHERE GuildID = '{context.Guild.Id}' AND PreconName = '{preconName}'";
 
                 _connect.Open();
                 SQLiteDataReader reader = command.ExecuteReader();
@@ -420,7 +420,7 @@ namespace DiscordBot.Managers
             return isActive;
         }
 
-        public static ExecuteResult ChangeModuleStatus(string moduleName, string guildID, bool moduleStatus)
+        public static ExecuteResult ChangeModuleStatus(string moduleName, string guildID)
         {
             SQLiteConnection _connect = new SQLiteConnection(Constants.ConnectionString);
 

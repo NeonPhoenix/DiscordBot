@@ -1,7 +1,5 @@
 ﻿using Discord;
-using Discord.Commands;
 using Discord.WebSocket;
-using DiscordBot.Events;
 using System;
 
 namespace DiscordBot.Builder

@@ -12,7 +12,7 @@ namespace DiscordBot.Modules
     {
         [Command("kick")]
         [RequireUserPermission(GuildPermission.KickMembers)]
-        public async Task Kick(SocketGuildUser usr, [Remainder]string name)
+        public async Task Kick(SocketGuildUser usr)
         {
             await ReplyAsync($"Goodbye {usr.Mention} :wave:");
             await usr.KickAsync();
@@ -33,7 +33,7 @@ namespace DiscordBot.Modules
             [Command("status")]
             public async Task ToggleAsync(string modName, bool modStatus)
             {
-                var result = await Task.Run(() => DatabaseManager.ChangeModuleStatus(modName, Context.Guild.Id.ToString(), modStatus));
+                var result = await Task.Run(() => DatabaseManager.ChangeModuleStatus(modName, Context.Guild.Id.ToString()));
                 
                 if (result.IsSuccess)
                 {

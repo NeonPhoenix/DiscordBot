@@ -19,8 +19,8 @@ namespace DiscordBot
         {
             StartupManager.CheckFiles();
 
-            var builder = new ConfigurationBuilder().SetBasePath($@"{AppContext.BaseDirectory}\Content\").AddJsonFile("token.json");        
-            Configuration = builder.Build();                
+            var builder = new ConfigurationBuilder().SetBasePath($@"{AppContext.BaseDirectory}\Content\").AddJsonFile("token.json");
+            Configuration = builder.Build();
         }
 
         public static async Task RunAsync(string[] args)
@@ -31,7 +31,7 @@ namespace DiscordBot
 
         public async Task RunAsync()
         {
-            var services = new ServiceCollection();         
+            var services = new ServiceCollection();
             ConfigureServices(services);
 
             var provider = services.BuildServiceProvider();

@@ -19,10 +19,10 @@ namespace DiscordBot.Managers
         }
 
         private static void CheckConnectionState(object sender, ElapsedEventArgs e)
-        { 
+        {
             var state = _discord.ConnectionState.ToString();
 
-            if(state == ConnectionState.Disconnected.ToString() || state == ConnectionState.Disconnecting.ToString())
+            if (state == ConnectionState.Disconnected.ToString() || state == ConnectionState.Disconnecting.ToString())
             {
                 LoggingService.LogAsync(LogSeverity.Info, $"Current Connection State: {state}");
                 LoggingService.LogAsync(LogSeverity.Info, "Restarting Application");

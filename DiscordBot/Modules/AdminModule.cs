@@ -12,7 +12,7 @@ namespace DiscordBot.Modules
     {
         [Command("kick")]
         [RequireUserPermission(GuildPermission.KickMembers)]
-        public async Task Kick(SocketGuildUser usr, [Remainder]string name)
+        public async Task Kick(SocketGuildUser usr, [Remainder] string name)
         {
             await ReplyAsync($"Goodbye {usr.Mention} :wave:");
             await usr.KickAsync();
@@ -74,7 +74,7 @@ namespace DiscordBot.Modules
             public async Task AssignTextChannel(string precon, IRole role, IChannel channel)
             {
                 var result = await Task.Run(() => DatabaseManager.AssignPreconditionToChannel(Context, precon, role.Id, channel.Id));
-                if(result.IsSuccess) { await ReplyAsync($"{precon} has been successfully assigned to {Context.Message.MentionedChannels}."); } else { await ReplyAsync(result.ToString()); }
+                if (result.IsSuccess) { await ReplyAsync($"{precon} has been successfully assigned to {Context.Message.MentionedChannels}."); } else { await ReplyAsync(result.ToString()); }
             }
         }
     }

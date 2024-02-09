@@ -8,7 +8,7 @@ namespace DiscordBot.Objects
 {
     class ReactionObject
     {
-        public Action Action { get; set; }    
+        public Action Action { get; set; }
     }
     class Action
     {

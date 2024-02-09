@@ -22,7 +22,7 @@ namespace DiscordBot.Builder
             }
 
             if (Uri.IsWellFormedUriString(img, UriKind.Absolute)) { _embed.WithImageUrl(img); }
-            
+
             return _embed;
         }
 

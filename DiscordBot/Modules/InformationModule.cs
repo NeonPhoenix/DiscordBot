@@ -53,7 +53,7 @@ namespace DiscordBot.Modules
 
             var builder = new EmbedBuilder { Color = new Color(114, 137, 218), Description = $"Here are some commands like **{command}**!" };
 
-            foreach(var match in result.Commands)
+            foreach (var match in result.Commands)
             {
                 var cmd = match.Command;
                 builder.AddField(x => { x.Name = string.Join(", ", cmd.Aliases); x.Value = $"Parameters: {string.Join(", ", cmd.Parameters.Select(p => p.Name))}\n" + $"Summary: {cmd.Summary}"; x.IsInline = false; });

@@ -14,8 +14,8 @@ namespace DiscordBot.Managers
 
         public static void CheckFiles()
         {
-            if(!File.Exists(Constants._tkPath)) { CreateSettingsJSON(); }
-            if(!File.Exists(Constants._dbPath)) { CreateSQLDatabase(); }
+            if (!File.Exists(Constants._tkPath)) { CreateSettingsJSON(); }
+            if (!File.Exists(Constants._dbPath)) { CreateSQLDatabase(); }
         }
 
         private static void CreateSettingsJSON()
@@ -24,7 +24,7 @@ namespace DiscordBot.Managers
             LoggingService.LogAsync(LogSeverity.Warning, _className, "Please paste your unique discord token below: ");
             string userInput = Console.ReadLine();
 
-            Token tk = new Token { DiscordToken = userInput };  
+            Token tk = new Token { DiscordToken = userInput };
 
             try
             {
@@ -50,7 +50,7 @@ namespace DiscordBot.Managers
                 DatabaseManager.CreateUserTable();
                 DatabaseManager.CreatePreconTable();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LoggingService.LogAsync(LogSeverity.Error, _className, ex.Message);
             }
